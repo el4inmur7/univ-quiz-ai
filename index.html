@@ -94,22 +94,15 @@
                 </div>
             </div>
 
-            <!-- AI Sual Generatoru (Fənn Seçimi ilə) -->
+            <!-- AI Sual Generatoru (Sərbəst Fənn Adı Girişi ilə) -->
             <div class="card-box bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
                 <h2 class="text-xl font-bold flex items-center"><i class="fa-solid fa-robot app-accent-text mr-2"></i> Real Google Gemini AI Sual Generatoru</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="space-y-3">
                         <div>
-                            <label class="block text-sm font-medium mb-1">İmtahan Fənni Seçin:</label>
-                            <select id="ai-subject" class="w-full p-2.5 border rounded-lg text-sm font-semibold">
-                                <option value="Kompüter Arxitekturası">Kompüter Arxitekturası</option>
-                                <option value="Proqram Mühəndisliyi">Proqram Mühəndisliyi</option>
-                                <option value="Kibertəhlükəsizlik və Kriptoqrafiya">Kibertəhlükəsizlik və Kriptoqrafiya</option>
-                                <option value="Rəqəmsal Forensika">Rəqəmsal Forensika</option>
-                                <option value="İntellektual Sistemlər">İntellektual Sistemlər</option>
-                                <option value="Verilənlər Bazasının Modelləşdirilməsi">Verilənlər Bazasının Modelləşdirilməsi</option>
-                            </select>
+                            <label class="block text-sm font-medium mb-1">İmtahan Fənninin Adı (Sərbəst daxil edin):</label>
+                            <input type="text" id="ai-subject" class="w-full p-2.5 border rounded-lg text-sm font-medium" placeholder="Məsələn: Kompüter Arxitekturası" value="Kompüter Arxitekturası">
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1">Sualın Çətinlik Səviyyəsi:</label>
@@ -123,7 +116,7 @@
 
                     <div>
                         <label class="block text-sm font-medium mb-1">Hazır Prompt / Tapşırıq:</label>
-                        <textarea id="ai-prompt-text" rows="5" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətnini təhlil et və dəqiq 10 ədəd nömrələnmiş imtahan test sualı hazırla.</textarea>
+                        <textarea id="ai-prompt-text" rows="5" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətnini təhlil et və dəqiq 10 ədəd nömrələnmiş (1., 2., 3...) imtahan sualı hazırla.</textarea>
                     </div>
 
                     <div class="space-y-3">
@@ -142,23 +135,12 @@
                 </div>
             </div>
 
-            <!-- Sual Bankı (Fənlərə Görə Filtrləmə ilə) -->
+            <!-- Sual Bankı -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="card-box md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                    <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı</h3>
-                        <div class="flex items-center gap-2">
-                            <select id="filter-subject" onchange="loadQuestions()" class="p-1.5 border rounded-lg text-xs font-medium">
-                                <option value="Bütün Fənlər">Bütün Fənlər</option>
-                                <option value="Kompüter Arxitekturası">Kompüter Arxitekturası</option>
-                                <option value="Proqram Mühəndisliyi">Proqram Mühəndisliyi</option>
-                                <option value="Kibertəhlükəsizlik və Kriptoqrafiya">Kibertəhlükəsizlik və Kriptoqrafiya</option>
-                                <option value="Rəqəmsal Forensika">Rəqəmsal Forensika</option>
-                                <option value="İntellektual Sistemlər">İntellektual Sistemlər</option>
-                                <option value="Verilənlər Bazasının Modelləşdirilməsi">Verilənlər Bazasının Modelləşdirilməsi</option>
-                            </select>
-                            <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
-                        </div>
+                        <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
                     </div>
                     <div id="question-bank-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
                         <div class="p-4 border rounded-lg space-y-2 bg-gray-50">
@@ -337,7 +319,7 @@
             }
         }
 
-        // Google Gemini AI Sual Generasiyası (10 sualın tək-tək ayrılıb Sual Bankına yazılması)
+        // Google Gemini AI Sual Generasiyası (Sərbəst Fənn Adı və 10 sualın tək-tək ayrılması)
         async function generateAndSaveAIQuestions() {
             const textElem = document.getElementById('ai-lecture-text');
             const diffElem = document.getElementById('ai-difficulty');
@@ -348,10 +330,15 @@
             const lectureText = textElem.value;
             const diff = diffElem ? diffElem.value : 'Orta';
             const customPrompt = promptElem ? promptElem.value : '';
-            const subject = subjectElem ? subjectElem.value : 'Kompüter Arxitekturası';
+            const subject = subjectElem ? subjectElem.value.trim() : 'Ümumi Fənn';
             
             if(!lectureText) {
                 alert("Zəhmət olmasa əvvəlcə mühazirə mətni daxil edin!");
+                return;
+            }
+
+            if(!subject) {
+                alert("Zəhmət olmasa imtahan fənninin adını qeyd edin!");
                 return;
             }
 
@@ -384,7 +371,6 @@
 
                 lines.forEach(line => {
                     let trimmed = line.trim();
-                    // Əgər sətir rəqəmlə başlayırsa (məsələn: "1.", "1)")
                     if (/^\d+[\.\)]/.test(trimmed)) {
                         if (currentQ) {
                             extractedQuestions.push(currentQ.trim());
@@ -398,14 +384,12 @@
                     extractedQuestions.push(currentQ.trim());
                 }
 
-                // Əgər format uyğun gəlməzsə, bütöv mətni 1 sual kimi saxlayırıq
                 if (extractedQuestions.length === 0) {
                     extractedQuestions.push(generatedText);
                 }
 
                 let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
 
-                // Hər bir sualı ayrıca Sual Bankına əlavə edirik
                 extractedQuestions.forEach(qText => {
                     localQuestions.unshift({
                         subject: subject,
@@ -428,27 +412,20 @@
             }
         }
 
-        // Sual Bankını fənlərə görə yükləmək və göstərmək
         function loadQuestions() {
             const bankList = document.getElementById('question-bank-list');
-            const filterSubject = document.getElementById('filter-subject').value;
             let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
-
-            // Fənnə görə filtrləmə
-            if (filterSubject !== "Bütün Fənlər") {
-                localQuestions = localQuestions.filter(q => q.subject === filterSubject);
-            }
 
             if(bankList) {
                 if(localQuestions.length === 0) {
-                    bankList.innerHTML = '<div class="p-4 border rounded-lg text-xs text-gray-500 text-center">Bu fənn üzrə hələ ki sual yoxdur. Yuxarıdan AI ilə sual yaradın.</div>';
+                    bankList.innerHTML = '<div class="p-4 border rounded-lg text-xs text-gray-500 text-center">Hələ ki bazada sual yoxdur. Yuxarıdan AI ilə fənn üzrə sual yaradın.</div>';
                 } else {
                     bankList.innerHTML = '';
                     localQuestions.forEach((q, index) => {
                         bankList.innerHTML += `
                             <div class="p-4 border rounded-lg space-y-2 bg-gray-50 shadow-sm">
                                 <div class="flex justify-between items-start gap-2">
-                                    <div class="font-bold text-sm whitespace-pre-line text-slate-800">${index + 1}. [${q.subject || 'Ümumi'}] ${q.question_text}</div>
+                                    <div class="font-bold text-sm whitespace-pre-line text-slate-800">${index + 1}. <span class="text-blue-600">[${q.subject || 'Ümumi'}]</span> ${q.question_text}</div>
                                     <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium whitespace-nowrap">${q.difficulty}</span>
                                 </div>
                                 <div class="text-xs text-gray-500 font-mono border-t pt-2 flex justify-between items-center">
