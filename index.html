@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnivQuiz AI - Universitet İmtahan Platforması</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .no-select { user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
+        
+        /* Dinamik Tema Palitraları */
+        body.theme-blue { background-color: #f8fafc; color: #1e293b; }
+        body.theme-blue .app-header { background-color: #1e3a8a; color: #ffffff; }
+        body.theme-blue .app-btn-primary { background-color: #2563eb; color: #ffffff; }
+        body.theme-blue .app-btn-primary:hover { background-color: #1d4ed8; }
+        body.theme-blue .app-accent-text { color: #2563eb; }
+
+        body.theme-emerald { background-color: #f0fdf4; color: #14532d; }
+        body.theme-emerald .app-header { background-color: #065f46; color: #ffffff; }
+        body.theme-emerald .app-btn-primary { background-color: #059669; color: #ffffff; }
+        body.theme-emerald .app-btn-primary:hover { background-color: #047857; }
+        body.theme-emerald .app-accent-text { color: #059669; }
+
+        body.theme-dark { background-color: #0f172a; color: #f1f5f9; }
+        body.theme-dark .app-header { background-color: #020617; color: #f1f5f9; border-bottom: 1px solid #1e293b; }
+        body.theme-dark .app-btn-primary { background-color: #4f46e5; color: #ffffff; }
+        body.theme-dark .app-btn-primary:hover { background-color: #4338ca; }
+        body.theme-dark .app-accent-text { color: #818cf8; }
+        body.theme-dark .card-box { background-color: #1e293b !important; color: #f1f5f9 !important; border-color: #334155 !important; }
+        body.theme-dark input, body.theme-dark select, body.theme-dark textarea { background-color: #0f172a !important; color: #f1f5f9 !important; border-color: #475569 !important; }
+        body.theme-dark .bg-gray-50, body.theme-dark .bg-gray-100 { background-color: #0f172a !important; color: #f1f5f9 !important; }
+    </style>
+</head>
+<body class="theme-blue font-sans transition-colors duration-300">
+
+    <!-- Ümumi Naviqasiya, Profil və Tema Seçimi -->
+    <header class="app-header shadow-md">
+        <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-graduation-cap text-2xl app-accent-text"></i>
+                <span class="text-xl font-bold tracking-wide">UnivQuiz <span class="app-accent-text">AI</span></span>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 bg-black/10 px-3 py-1.5 rounded-lg text-xs">
+                    <img id="header-avatar" src="https://via.placeholder.com/32" alt="Profil" class="w-7 h-7 rounded-full object-cover border border-white/50">
+                    <div class="text-left">
+                        <div id="header-name" class="font-bold">Elçin müəllim</div>
+                        <div id="header-role" class="opacity-80">Müəllim / SDU</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-1.5 bg-black/10 px-2.5 py-1.5 rounded-lg text-xs">
+                    <span><i class="fa-solid fa-palette"></i></span>
+                    <button onclick="setTheme('theme-blue')" class="w-4 h-4 rounded-full bg-blue-600 border border-white" title="Mavi Ahəng"></button>
+                    <button onclick="setTheme('theme-emerald')" class="w-4 h-4 rounded-full bg-emerald-600 border border-white" title="Yaşıl Ahəng"></button>
+                    <button onclick="setTheme('theme-dark')" class="w-4 h-4 rounded-full bg-slate-900 border border-white" title="Tünd Rejim"></button>
+                </div>
+
+                <div class="space-x-1">
+                    <button onclick="switchView('teacher')" id="btn-teacher" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition"><i class="fa-solid fa-chalkboard-user mr-1"></i> Müəllim</button>
+                    <button onclick="switchView('student')" id="btn-student" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition opacity-80"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-6 space-y-6">
+
+        <!-- MÜƏLLİM PANELİ -->
+        <div id="teacher-view" class="space-y-6">
+            
+            <!-- Profil Ayarları Sürətli Paneli -->
+            <div class="card-box bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+                <div class="flex items-center space-x-3">
+                    <div class="relative">
+                        <img id="profile-img-preview" src="https://via.placeholder.com/50" class="w-12 h-12 rounded-full object-cover border-2 border-blue-500">
+                        <label class="absolute bottom-0 right-0 bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] cursor-pointer hover:bg-blue-700">
+                            <i class="fa-solid fa-camera"></i>
+                            <input type="file" id="avatar-input" class="hidden" accept="image/*" onchange="updateProfileAvatar(event)">
+                        </label>
+                    </div>
+                    <div>
+                        <input type="text" id="input-prof-name" value="Elçin müəllim" class="font-bold border-b bg-transparent focus:outline-none text-sm px-1 py-0.5" oninput="syncProfileInfo()">
+                        <div class="text-xs text-gray-500">Sumqayıt Dövlət Universiteti | Kompüter Elmləri Kafedrası</div>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-500 italic flex items-center gap-2">
+                    <span id="db-status" class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> Gemini AI Sual Generatoru Aktivdir
+                </div>
+            </div>
+
+            <!-- AI Sual Generatoru, Şablonlar və Şəkil Əlavə Etmə -->
+            <div class="card-box bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
+                <h2 class="text-xl font-bold flex items-center"><i class="fa-solid fa-robot app-accent-text mr-2"></i> Real Google Gemini AI Sual Generatoru</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Prompt Şablonu Seçin:</label>
+                            <select id="ai-prompt-type" onchange="loadPromptTemplate()" class="w-full p-2.5 border rounded-lg text-sm">
+                                <option value="classic">Klassik & Standart (Test və Qısa Açıq)</option>
+                                <option value="analytical">Analitik & Praktiki (Keys tipli)</option>
+                                <option value="quiz">Sürətli Qiymətləndirmə (Mini-Quiz)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Sualın Çətinlik Səviyyəsi:</label>
+                            <select id="ai-difficulty" class="w-full p-2.5 border rounded-lg text-sm">
+                                <option value="easy">Asan (Baza biliklər)</option>
+                                <option value="medium" selected>Orta (Standart imtahan)</option>
+                                <option value="hard">Çətin (Analitik və tətbiqi)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Hazır Prompt Nümunəsi:</label>
+                        <textarea id="ai-prompt-text" rows="5" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Sənə təqdim olunan mühazirə mətninə əsasən 4 variantlı (A, B, C, D) tək seçimli test sualı hazırla.</textarea>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Mühazirə Materialı / Mətn:</label>
+                            <textarea id="ai-lecture-text" rows="2" class="w-full p-2.5 border rounded-lg text-sm" placeholder="Mövzuya aid mühazirə mətni daxil edin..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Suala Sxem / Şəkil Əlavə Et:</label>
+                            <input type="file" id="question-image-input" class="w-full text-xs text-gray-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" accept="image/*">
+                        </div>
+                        <button onclick="generateAndSaveAIQuestions()" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md">
+                            <i class="fa-solid fa-sparkles mr-2"></i> Gemini ilə Generasiya Et və Saxla
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sual Bankı -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card-box md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı</h3>
+                        <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium hover:bg-blue-100 transition"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
+                    </div>
+                    <div id="question-bank-list" class="space-y-3">
+                        <div class="p-4 border rounded-lg space-y-2 bg-gray-50">
+                            <div class="flex justify-between items-start">
+                                <span class="font-bold text-sm">Məlumatlar yüklənir...</span>
+                                <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Sistem</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR Kod və Yoxlama Linki -->
+                <div class="card-box bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center">
+                    <h3 class="text-lg font-bold mb-2 flex items-center"><i class="fa-solid fa-qrcode app-accent-text mr-2"></i> Tələbə Giriş QR Kodu</h3>
+                    <p class="text-xs text-gray-500 mb-3">Auditoriyada skan edərək dərhal qoşulun.</p>
+                    <div id="qrcode" class="p-3 bg-white border rounded-lg shadow-inner mb-3"></div>
+                    <span id="exam-link-text" class="text-xs app-accent-text font-mono break-all mb-3"></span>
+                    
+                    <div class="w-full pt-3 border-t">
+                        <button onclick="generateCoGraderLink()" class="w-full bg-slate-800 text-white py-2 rounded-lg text-xs font-medium hover:bg-slate-700 transition">
+                            <i class="fa-solid fa-share-nodes mr-1"></i> Yoxlama Linkini Başqasına At
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nəticələr və Excel/PDF İxracı -->
+            <div class="card-box bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                    <h2 class="text-xl font-bold flex items-center"><i class="fa-solid fa-table-cells text-green-600 mr-2"></i> İmtahan Nəticələri və Hesabatlar</h2>
+                    <div class="flex flex-wrap gap-2">
+                        <div class="flex items-center space-x-1">
+                            <input type="email" id="report-email" class="p-2 border rounded-lg text-xs" placeholder="qrup.numayendesi@sdu.edu.az">
+                            <button onclick="sendReportEmail()" class="app-btn-primary px-3 py-2 rounded-lg text-xs font-medium transition flex items-center">
+                                <i class="fa-solid fa-envelope mr-1"></i> Mailə Göndər
+                            </button>
+                        </div>
+                        <button onclick="exportToExcel()" class="bg-emerald-600 text-white px-3 py-2 rounded-lg text-xs font-medium hover:bg-emerald-700 transition flex items-center">
+                            <i class="fa-solid fa-file-excel mr-1"></i> Excel
+                        </button>
+                        <button onclick="exportToPDF()" class="bg-rose-600 text-white px-3 py-2 rounded-lg text-xs font-medium hover:bg-rose-700 transition flex items-center">
+                            <i class="fa-solid fa-file-pdf mr-1"></i> PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse" id="results-table">
+                        <thead>
+                            <tr class="bg-gray-100 text-xs uppercase tracking-wider">
+                                <th class="p-3 border-b">Tələbə Adı</th>
+                                <th class="p-3 border-b">Qrup</th>
+                                <th class="p-3 border-b">Doğru / Səhv</th>
+                                <th class="p-3 border-b">Topladığı Bal</th>
+                                <th class="p-3 border-b">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr>
+                                <td class="p-3 border-b">Əli Məmmədov</td>
+                                <td class="p-3 border-b">521.22</td>
+                                <td class="p-3 border-b">4 / 1</td>
+                                <td class="p-3 border-b font-bold app-accent-text">90 / 100</td>
+                                <td class="p-3 border-b"><span class="bg-green-100 text-green-800 text-xs px-2.5 py-1 rounded-full font-medium">Keçdi</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TƏLƏBƏ İMTAHAN PANELİ -->
+        <div id="student-view" class="hidden space-y-6 max-w-xl mx-auto">
+            <div class="card-box bg-white p-6 rounded-xl shadow-md border no-select" id="exam-container">
+                <div class="flex justify-between items-center border-b pb-4 mb-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://via.placeholder.com/40" class="w-10 h-10 rounded-full border">
+                        <div>
+                            <h2 class="font-bold text-base">Kompüter Arxitekturası - İmtahan</h2>
+                            <p class="text-xs text-gray-500">Tələbə: Leyla Əliyeva (Qrup: 521.22)</p>
+                        </div>
+                    </div>
+                    <div class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg font-mono font-bold text-sm flex items-center">
+                        <i class="fa-solid fa-clock mr-1.5"></i> <span id="timer">14:59</span>
+                    </div>
+                </div>
+
+                <div id="cheat-warning" class="hidden mb-4 p-3 bg-red-100 text-red-700 text-xs rounded-lg flex items-center">
+                    <i class="fa-solid fa-triangle-exclamation mr-2 text-base"></i>
+                    <span>Diqqət! Səhifəni tərk etmək qadağandır! Xəbərdarlıq: <span id="warning-count">0</span>/3</span>
+                </div>
+
+                <div id="exam-questions" class="space-y-6">
+                    <div class="space-y-3">
+                        <p class="font-medium text-sm">1. Aşağıdakı keş yaddaş səviyyələri sxeminə əsasən L1 və L2 arasındakı əlaqəni müəyyən edin:</p>
+                        <div class="space-y-2 text-sm">
+                            <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                                <input type="radio" name="q1" class="mr-3"> L1 keş prosessora daha yaxındır və sürəti daha yüksəkdir
+                            </label>
+                            <label class="flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                                <input type="radio" name="q1" class="mr-3"> L2 keş əsas yaddaşdan asılı deyil
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="submitExamToLocal()" class="w-full mt-6 app-btn-primary py-3 rounded-lg font-medium transition shadow-md">İmtahanı Bitir və Göndər</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Gemini API Konfiqurasiyası
+        const GEMINI_API_KEY = 'AQ.Ab8RN6KH4NJxh7245kp6dbq7X9_NDUFFKiMJl0hwanzBBW0NFQ';
+        
+        window.onload = function() {
+            loadQuestions();
+            
+            const currentUrl = window.location.href.split('?')[0];
+            const linkElem = document.getElementById('exam-link-text');
+            if(linkElem) linkElem.innerText = currentUrl;
+            
+            const qrcodeElem = document.getElementById("qrcode");
+            if(qrcodeElem) {
+                qrcodeElem.innerHTML = "";
+                new QRCode(qrcodeElem, {
+                    text: currentUrl,
+                    width: 110,
+                    height: 110
+                });
+            }
+        };
+
+        function setTheme(themeName) {
+            document.body.className = themeName + " font-sans transition-colors duration-300";
+        }
+
+        function updateProfileAvatar(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('profile-img-preview');
+                    const headerAvatar = document.getElementById('header-avatar');
+                    if (preview) preview.src = e.target.result;
+                    if (headerAvatar) headerAvatar.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function syncProfileInfo() {
+            const nameInput = document.getElementById('input-prof-name');
+            const headerName = document.getElementById('header-name');
+            if(nameInput && headerName) {
+                headerName.innerText = nameInput.value || "Müəllim";
+            }
+        }
+
+        function switchView(view) {
+            const teacherView = document.getElementById('teacher-view');
+            const studentView = document.getElementById('student-view');
+            if (view === 'teacher') {
+                if(teacherView) teacherView.classList.remove('hidden');
+                if(studentView) studentView.classList.add('hidden');
+            } else {
+                if(teacherView) teacherView.classList.add('hidden');
+                if(studentView) studentView.classList.remove('hidden');
+            }
+        }
+
+        function loadPromptTemplate() {
+            const typeElem = document.getElementById('ai-prompt-type');
+            const textarea = document.getElementById('ai-prompt-text');
+            if(!textarea || !typeElem) return;
+            
+            const type = typeElem.value;
+            if(type === 'classic') {
+                textarea.value = "Sənə təqdim olunan mühazirə mətninə əsasən 4 variantlı (A, B, C, D) tək seçimli test sualı hazırla.";
+            } else if(type === 'analytical') {
+                textarea.value = "Təqdim olunan mühazirə mətnini təhlil et və tələbələrin tətbiqi bacarıqlarını yoxlamaq üçün analitik sual yarat.";
+            } else if(type === 'quiz') {
+                textarea.value = "Verilmiş mətndən ən vacib məqamı seçərək qısa test sualı tərtib et.";
+            }
+        }
+
+        // Google Gemini API vasitəsilə Sual Generasiyası və Sətrlərə Bölünərək Saxlanılması
+        async function generateAndSaveAIQuestions() {
+            const textElem = document.getElementById('ai-lecture-text');
+            const diffElem = document.getElementById('ai-difficulty');
+            const promptElem = document.getElementById('ai-prompt-text');
+            if(!textElem) return;
+
+            const lectureText = textElem.value;
+            const diff = diffElem ? diffElem.value : 'medium';
+            const customPrompt = promptElem ? promptElem.value : '';
+            
+            if(!lectureText) {
+                alert("Zəhmət olmasa əvvəlcə mühazirə mətni daxil edin!");
+                return;
+            }
+
+            alert("Google Gemini AI mətni təhlil edir və sualları yaradır, zəhmət olmasa gözləyin...");
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: `${customPrompt}\n\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində istənilən sayda keyfiyyətli imtahan sualları tərtib et.`
+                            }]
+                        }]
+                    })
+                });
+
+                const result = await response.json();
+                let generatedText = "";
+
+                if (result.candidates && result.candidates[0].content.parts[0].text) {
+                    generatedText = result.candidates[0].content.parts[0].text;
+                }
+
+                // Generasiya olunan mətni nömrələrə və ya sətirlərə bölərək ayrı-ayrı suallar kimi qeydiyyata alırıq
+                let questionLines = generatedText.split('\n').filter(line => line.trim().length > 5);
+                
+                let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
+
+                if (questionLines.length > 3) {
+                    // Əgər bir neçə sətir/sual varsa, onları ayrı-ayrı əlavə edirik
+                    let currentQ = { question_text: "", difficulty: diff, correct_answer: "Gemini AI Etalon Cavab", created_at: new Date().toLocaleString() };
+                    
+                    questionLines.forEach(line => {
+                        if (line.match(/^\d+[\.\)]/) || line.toLowerCase().includes('sual')) {
+                            if (currentQ.question_text) {
+                                localQuestions.unshift({...currentQ});
+                            }
+                            currentQ.question_text = line;
+                        } else {
+                            currentQ.question_text += "\n" + line;
+                        }
+                    });
+                    if (currentQ.question_text) {
+                        localQuestions.unshift(currentQ);
+                    }
+                } else {
+                    // Əgər blok halındadırsa
+                    localQuestions.unshift({
+                        question_text: generatedText,
+                        question_type: 'test_kopleksi',
+                        difficulty: diff,
+                        correct_answer: "Gemini AI Etalon Cavab",
+                        created_at: new Date().toLocaleString()
+                    });
+                }
+
+                localStorage.setItem('univ_local_questions', JSON.stringify(localQuestions));
+
+                alert("Gemini AI tərəfindən yaradılan suallar uğurla Sual Bankına əlavə olundu!");
+                textElem.value = "";
+                loadQuestions();
+
+            } catch(err) {
+                console.error("AI xətası:", err);
+                alert("Süni intellekt ilə əlaqə zamanı xəta baş verdi.");
+            }
+        }
+
+        function loadQuestions() {
+            const bankList = document.getElementById('question-bank-list');
+            let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
+
+            if(bankList) {
+                if(localQuestions.length === 0) {
+                    bankList.innerHTML = '<div class="p-4 border rounded-lg text-xs text-gray-500">Hələ ki bazada sual yoxdur. Yuxarıdan AI ilə sual əlavə edin.</div>';
+                } else {
+                    bankList.innerHTML = '';
+                    localQuestions.forEach((q, index) => {
+                        bankList
