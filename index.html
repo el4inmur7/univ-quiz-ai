@@ -55,7 +55,6 @@
                     </div>
                 </div>
 
-                <!-- Tema seçimi düymələri işlək vəziyyətə gətirildi -->
                 <div class="flex items-center space-x-1.5 bg-black/10 px-2.5 py-1.5 rounded-lg text-xs">
                     <span><i class="fa-solid fa-palette"></i></span>
                     <button onclick="setTheme('theme-blue')" class="w-4 h-4 rounded-full bg-blue-600 border border-white cursor-pointer" title="Mavi Ahəng"></button>
@@ -63,7 +62,6 @@
                     <button onclick="setTheme('theme-dark')" class="w-4 h-4 rounded-full bg-slate-900 border border-white cursor-pointer" title="Tünd Rejim"></button>
                 </div>
 
-                <!-- Görünüş rejimini dəyişən düymələr işlək vəziyyətə gətirildi -->
                 <div class="space-x-1">
                     <button onclick="switchView('teacher')" id="btn-teacher" class="px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium transition cursor-pointer"><i class="fa-solid fa-chalkboard-user mr-1"></i> Müəllim</button>
                     <button onclick="switchView('student')" id="btn-student" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition opacity-80 cursor-pointer"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə</button>
@@ -77,11 +75,9 @@
         <!-- MÜƏLLİM PANELİ -->
         <div id="teacher-view" class="space-y-6">
             
-            <!-- Profil Ayarları Sürətli Paneli -->
             <div class="card-box bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
                 <div class="flex items-center space-x-3">
                     <div class="relative">
-                        <!-- Profil şəkli yükləmə funksiyası qoşuldu -->
                         <img id="profile-img-preview" src="https://via.placeholder.com/50" class="w-12 h-12 rounded-full object-cover border-2 border-blue-500">
                         <label class="absolute bottom-0 right-0 bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] cursor-pointer hover:bg-blue-700">
                             <i class="fa-solid fa-camera"></i>
@@ -98,7 +94,7 @@
                 </div>
             </div>
 
-            <!-- AI Sual Generatoru, Şablonlar və Şəkil Əlavə Etmə -->
+            <!-- AI Sual Generatoru -->
             <div class="card-box bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
                 <h2 class="text-xl font-bold flex items-center"><i class="fa-solid fa-robot app-accent-text mr-2"></i> Real Google Gemini AI Sual Generatoru</h2>
                 
@@ -124,7 +120,7 @@
 
                     <div>
                         <label class="block text-sm font-medium mb-1">Hazır Prompt Nümunəsi:</label>
-                        <textarea id="ai-prompt-text" rows="5" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Sənə təqdim olunan mühazirə mətninə əsasən 4 variantlı (A, B, C, D) tək seçimli test sualı hazırla.</textarea>
+                        <textarea id="ai-prompt-text" rows="5" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətnini təhlil et və tələbələrin tətbiqi bacarıqlarını yoxlamaq üçün analitik 10 sayda sual yarat.</textarea>
                     </div>
 
                     <div class="space-y-3">
@@ -262,13 +258,11 @@
     </main>
 
     <script>
-        // Gemini API Konfiqurasiyası
         const GEMINI_API_KEY = 'AQ.Ab8RN6KH4NJxh7245kp6dbq7X9_NDUFFKiMJl0hwanzBBW0NFQ';
         
         window.onload = function() {
             loadQuestions();
             
-            // QR Kod və Linkin avtomatik yaranması
             const currentUrl = window.location.href.split('?')[0];
             const linkElem = document.getElementById('exam-link-text');
             if(linkElem) linkElem.innerText = currentUrl;
@@ -284,12 +278,10 @@
             }
         };
 
-        // Tema dəyişdirmə funksiyası aktiv edildi
         function setTheme(themeName) {
             document.body.className = themeName + " font-sans transition-colors duration-300";
         }
 
-        // Profil şəkilini yükləmə və dəyişdirmə funksiyası qoşuldu
         function updateProfileAvatar(event) {
             const file = event.target.files[0];
             if (file) {
@@ -312,7 +304,6 @@
             }
         }
 
-        // Müəllim və Tələbə görünüş rejimləri arasında keçid aktiv edildi
         function switchView(view) {
             const teacherView = document.getElementById('teacher-view');
             const studentView = document.getElementById('student-view');
@@ -341,13 +332,13 @@
             if(type === 'classic') {
                 textarea.value = "Sənə təqdim olunan mühazirə mətninə əsasən 4 variantlı (A, B, C, D) tək seçimli test sualı hazırla.";
             } else if(type === 'analytical') {
-                textarea.value = "Təqdim olunan mühazirə mətnini təhlil et və tələbələrin tətbiqi bacarıqlarını yoxlamaq üçün analitik sual yarat.";
+                textarea.value = "Təqdim olunan mühazirə mətnini təhlil et və tələbələrin tətbiqi bacarıqlarını yoxlamaq üçün analitik 10 sayda sual yarat.";
             } else if(type === 'quiz') {
                 textarea.value = "Verilmiş mətndən ən vacib məqamı seçərək qısa test sualı tərtib et.";
             }
         }
 
-        // Google Gemini AI Sual Generasiyası
+        // Google Gemini AI Sual Generasiyası və Mətnin Tam Göstərilməsi
         async function generateAndSaveAIQuestions() {
             const textElem = document.getElementById('ai-lecture-text');
             const diffElem = document.getElementById('ai-difficulty');
@@ -372,14 +363,14 @@
                     body: JSON.stringify({
                         contents: [{
                             parts: [{
-                                text: `${customPrompt}\n\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində keyfiyyətli imtahan sualları tərtib et.`
+                                text: `${customPrompt}\n\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində ətraflı imtahan sualları tərtib et.`
                             }]
                         }]
                     })
                 });
 
                 const result = await response.json();
-                let generatedText = "";
+                let generatedText = "Sual mətni generasiya olundu.";
 
                 if (result.candidates && result.candidates[0].content.parts[0].text) {
                     generatedText = result.candidates[0].content.parts[0].text;
@@ -388,7 +379,6 @@
                 let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
                 localQuestions.unshift({
                     question_text: generatedText,
-                    question_type: 'test_kompleksi',
                     difficulty: diff,
                     correct_answer: "Gemini AI Etalon Cavab",
                     created_at: new Date().toLocaleString()
@@ -419,10 +409,10 @@
                         bankList.innerHTML += `
                             <div class="p-4 border rounded-lg space-y-2 bg-gray-50 shadow-sm">
                                 <div class="flex justify-between items-start">
-                                    <span class="font-bold text-sm whitespace-pre-line">${index + 1}. ${q.question_text}</span>
-                                    <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">${q.difficulty}</span>
+                                    <div class="font-bold text-sm whitespace-pre-line text-slate-800">${index + 1}. ${q.question_text}</div>
+                                    <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium">${q.difficulty}</span>
                                 </div>
-                                <div class="text-xs text-gray-500 font-mono">Tip: Test | Cavab: ${q.correct_answer} | Tarix: ${q.created_at}</div>
+                                <div class="text-xs text-gray-500 font-mono border-t pt-2">Tip: Test | Cavab: ${q.correct_answer} | Tarix: ${q.created_at}</div>
                             </div>
                         `;
                     });
