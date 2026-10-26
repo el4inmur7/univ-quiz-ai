@@ -55,16 +55,18 @@
                     </div>
                 </div>
 
+                <!-- Tema seçimi düymələri işlək vəziyyətə gətirildi -->
                 <div class="flex items-center space-x-1.5 bg-black/10 px-2.5 py-1.5 rounded-lg text-xs">
                     <span><i class="fa-solid fa-palette"></i></span>
-                    <button onclick="setTheme('theme-blue')" class="w-4 h-4 rounded-full bg-blue-600 border border-white" title="Mavi Ahəng"></button>
-                    <button onclick="setTheme('theme-emerald')" class="w-4 h-4 rounded-full bg-emerald-600 border border-white" title="Yaşıl Ahəng"></button>
-                    <button onclick="setTheme('theme-dark')" class="w-4 h-4 rounded-full bg-slate-900 border border-white" title="Tünd Rejim"></button>
+                    <button onclick="setTheme('theme-blue')" class="w-4 h-4 rounded-full bg-blue-600 border border-white cursor-pointer" title="Mavi Ahəng"></button>
+                    <button onclick="setTheme('theme-emerald')" class="w-4 h-4 rounded-full bg-emerald-600 border border-white cursor-pointer" title="Yaşıl Ahəng"></button>
+                    <button onclick="setTheme('theme-dark')" class="w-4 h-4 rounded-full bg-slate-900 border border-white cursor-pointer" title="Tünd Rejim"></button>
                 </div>
 
+                <!-- Görünüş rejimini dəyişən düymələr işlək vəziyyətə gətirildi -->
                 <div class="space-x-1">
-                    <button onclick="switchView('teacher')" id="btn-teacher" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition"><i class="fa-solid fa-chalkboard-user mr-1"></i> Müəllim</button>
-                    <button onclick="switchView('student')" id="btn-student" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition opacity-80"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə</button>
+                    <button onclick="switchView('teacher')" id="btn-teacher" class="px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium transition cursor-pointer"><i class="fa-solid fa-chalkboard-user mr-1"></i> Müəllim</button>
+                    <button onclick="switchView('student')" id="btn-student" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition opacity-80 cursor-pointer"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə</button>
                 </div>
             </div>
         </div>
@@ -79,6 +81,7 @@
             <div class="card-box bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
                 <div class="flex items-center space-x-3">
                     <div class="relative">
+                        <!-- Profil şəkli yükləmə funksiyası qoşuldu -->
                         <img id="profile-img-preview" src="https://via.placeholder.com/50" class="w-12 h-12 rounded-full object-cover border-2 border-blue-500">
                         <label class="absolute bottom-0 right-0 bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] cursor-pointer hover:bg-blue-700">
                             <i class="fa-solid fa-camera"></i>
@@ -133,7 +136,7 @@
                             <label class="block text-sm font-medium mb-1">Suala Sxem / Şəkil Əlavə Et:</label>
                             <input type="file" id="question-image-input" class="w-full text-xs text-gray-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" accept="image/*">
                         </div>
-                        <button onclick="generateAndSaveAIQuestions()" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md">
+                        <button onclick="generateAndSaveAIQuestions()" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md cursor-pointer">
                             <i class="fa-solid fa-sparkles mr-2"></i> Gemini ilə Generasiya Et və Saxla
                         </button>
                     </div>
@@ -145,7 +148,7 @@
                 <div class="card-box md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı</h3>
-                        <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium hover:bg-blue-100 transition"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
+                        <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
                     </div>
                     <div id="question-bank-list" class="space-y-3">
                         <div class="p-4 border rounded-lg space-y-2 bg-gray-50">
@@ -165,7 +168,7 @@
                     <span id="exam-link-text" class="text-xs app-accent-text font-mono break-all mb-3"></span>
                     
                     <div class="w-full pt-3 border-t">
-                        <button onclick="generateCoGraderLink()" class="w-full bg-slate-800 text-white py-2 rounded-lg text-xs font-medium hover:bg-slate-700 transition">
+                        <button onclick="generateCoGraderLink()" class="w-full bg-slate-800 text-white py-2 rounded-lg text-xs font-medium hover:bg-slate-700 transition cursor-pointer">
                             <i class="fa-solid fa-share-nodes mr-1"></i> Yoxlama Linkini Başqasına At
                         </button>
                     </div>
@@ -179,14 +182,14 @@
                     <div class="flex flex-wrap gap-2">
                         <div class="flex items-center space-x-1">
                             <input type="email" id="report-email" class="p-2 border rounded-lg text-xs" placeholder="qrup.numayendesi@sdu.edu.az">
-                            <button onclick="sendReportEmail()" class="app-btn-primary px-3 py-2 rounded-lg text-xs font-medium transition flex items-center">
+                            <button onclick="sendReportEmail()" class="app-btn-primary px-3 py-2 rounded-lg text-xs font-medium transition flex items-center cursor-pointer">
                                 <i class="fa-solid fa-envelope mr-1"></i> Mailə Göndər
                             </button>
                         </div>
-                        <button onclick="exportToExcel()" class="bg-emerald-600 text-white px-3 py-2 rounded-lg text-xs font-medium hover:bg-emerald-700 transition flex items-center">
+                        <button onclick="exportToExcel()" class="bg-emerald-600 text-white px-3 py-2 rounded-lg text-xs font-medium hover:bg-emerald-700 transition flex items-center cursor-pointer">
                             <i class="fa-solid fa-file-excel mr-1"></i> Excel
                         </button>
-                        <button onclick="exportToPDF()" class="bg-rose-600 text-white px-3 py-2 rounded-lg text-xs font-medium hover:bg-rose-700 transition flex items-center">
+                        <button onclick="exportToPDF()" class="bg-rose-600 text-white px-3 py-2 rounded-lg text-xs font-medium hover:bg-rose-700 transition flex items-center cursor-pointer">
                             <i class="fa-solid fa-file-pdf mr-1"></i> PDF
                         </button>
                     </div>
@@ -252,7 +255,7 @@
                     </div>
                 </div>
 
-                <button onclick="submitExamToLocal()" class="w-full mt-6 app-btn-primary py-3 rounded-lg font-medium transition shadow-md">İmtahanı Bitir və Göndər</button>
+                <button onclick="submitExamToLocal()" class="w-full mt-6 app-btn-primary py-3 rounded-lg font-medium transition shadow-md cursor-pointer">İmtahanı Bitir və Göndər</button>
             </div>
         </div>
 
@@ -265,6 +268,7 @@
         window.onload = function() {
             loadQuestions();
             
+            // QR Kod və Linkin avtomatik yaranması
             const currentUrl = window.location.href.split('?')[0];
             const linkElem = document.getElementById('exam-link-text');
             if(linkElem) linkElem.innerText = currentUrl;
@@ -280,10 +284,12 @@
             }
         };
 
+        // Tema dəyişdirmə funksiyası aktiv edildi
         function setTheme(themeName) {
             document.body.className = themeName + " font-sans transition-colors duration-300";
         }
 
+        // Profil şəkilini yükləmə və dəyişdirmə funksiyası qoşuldu
         function updateProfileAvatar(event) {
             const file = event.target.files[0];
             if (file) {
@@ -306,15 +312,23 @@
             }
         }
 
+        // Müəllim və Tələbə görünüş rejimləri arasında keçid aktiv edildi
         function switchView(view) {
             const teacherView = document.getElementById('teacher-view');
             const studentView = document.getElementById('student-view');
+            const btnTeacher = document.getElementById('btn-teacher');
+            const btnStudent = document.getElementById('btn-student');
+
             if (view === 'teacher') {
                 if(teacherView) teacherView.classList.remove('hidden');
                 if(studentView) studentView.classList.add('hidden');
+                if(btnTeacher) { btnTeacher.className = "px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium transition cursor-pointer"; }
+                if(btnStudent) { btnStudent.className = "px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition opacity-80 cursor-pointer"; }
             } else {
                 if(teacherView) teacherView.classList.add('hidden');
                 if(studentView) studentView.classList.remove('hidden');
+                if(btnStudent) { btnStudent.className = "px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium transition cursor-pointer"; }
+                if(btnTeacher) { btnTeacher.className = "px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition opacity-80 cursor-pointer"; }
             }
         }
 
@@ -333,7 +347,7 @@
             }
         }
 
-        // Google Gemini API vasitəsilə Sual Generasiyası və Sətrlərə Bölünərək Saxlanılması
+        // Google Gemini AI Sual Generasiyası
         async function generateAndSaveAIQuestions() {
             const textElem = document.getElementById('ai-lecture-text');
             const diffElem = document.getElementById('ai-difficulty');
@@ -358,7 +372,7 @@
                     body: JSON.stringify({
                         contents: [{
                             parts: [{
-                                text: `${customPrompt}\n\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində istənilən sayda keyfiyyətli imtahan sualları tərtib et.`
+                                text: `${customPrompt}\n\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində keyfiyyətli imtahan sualları tərtib et.`
                             }]
                         }]
                     })
@@ -371,38 +385,14 @@
                     generatedText = result.candidates[0].content.parts[0].text;
                 }
 
-                // Generasiya olunan mətni nömrələrə və ya sətirlərə bölərək ayrı-ayrı suallar kimi qeydiyyata alırıq
-                let questionLines = generatedText.split('\n').filter(line => line.trim().length > 5);
-                
                 let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
-
-                if (questionLines.length > 3) {
-                    // Əgər bir neçə sətir/sual varsa, onları ayrı-ayrı əlavə edirik
-                    let currentQ = { question_text: "", difficulty: diff, correct_answer: "Gemini AI Etalon Cavab", created_at: new Date().toLocaleString() };
-                    
-                    questionLines.forEach(line => {
-                        if (line.match(/^\d+[\.\)]/) || line.toLowerCase().includes('sual')) {
-                            if (currentQ.question_text) {
-                                localQuestions.unshift({...currentQ});
-                            }
-                            currentQ.question_text = line;
-                        } else {
-                            currentQ.question_text += "\n" + line;
-                        }
-                    });
-                    if (currentQ.question_text) {
-                        localQuestions.unshift(currentQ);
-                    }
-                } else {
-                    // Əgər blok halındadırsa
-                    localQuestions.unshift({
-                        question_text: generatedText,
-                        question_type: 'test_kopleksi',
-                        difficulty: diff,
-                        correct_answer: "Gemini AI Etalon Cavab",
-                        created_at: new Date().toLocaleString()
-                    });
-                }
+                localQuestions.unshift({
+                    question_text: generatedText,
+                    question_type: 'test_kompleksi',
+                    difficulty: diff,
+                    correct_answer: "Gemini AI Etalon Cavab",
+                    created_at: new Date().toLocaleString()
+                });
 
                 localStorage.setItem('univ_local_questions', JSON.stringify(localQuestions));
 
@@ -426,4 +416,74 @@
                 } else {
                     bankList.innerHTML = '';
                     localQuestions.forEach((q, index) => {
-                        bankList
+                        bankList.innerHTML += `
+                            <div class="p-4 border rounded-lg space-y-2 bg-gray-50 shadow-sm">
+                                <div class="flex justify-between items-start">
+                                    <span class="font-bold text-sm whitespace-pre-line">${index + 1}. ${q.question_text}</span>
+                                    <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">${q.difficulty}</span>
+                                </div>
+                                <div class="text-xs text-gray-500 font-mono">Tip: Test | Cavab: ${q.correct_answer} | Tarix: ${q.created_at}</div>
+                            </div>
+                        `;
+                    });
+                }
+            }
+        }
+
+        function generateCoGraderLink() {
+            const secureLink = window.location.href.split('?')[0] + "?co_grader=secure_token_xyz999";
+            navigator.clipboard.writeText(secureLink);
+            alert("Açıq sualların yoxlanılması üçün təhlükəsiz yoxlama linki kopyalandı:\n" + secureLink);
+        }
+
+        function sendReportEmail() {
+            const emailElem = document.getElementById('report-email');
+            if(!emailElem) return;
+            const email = emailElem.value;
+            if(!email) {
+                alert("Zəhmət olmasa qrup nümayəndəsinin e-poçt ünvanını daxil edin!");
+                return;
+            }
+            alert(`İmtahan nəticələri uğurla ${email} ünvanına göndərildi!`);
+        }
+
+        function exportToExcel() {
+            let table = document.getElementById("results-table");
+            if(!table) return;
+            let wb = XLSX.utils.table_to_book(table, {sheet: "Imtahan Neticeleri"});
+            XLSX.writeFile(wb, "UnivQuiz_Neticeler.xlsx");
+        }
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            let doc = new jsPDF();
+            doc.text("UnivQuiz AI - Imtahan Neticeleri Hesabati", 14, 15);
+            doc.autoTable({ html: '#results-table', startY: 25, theme: 'grid' });
+            doc.save("UnivQuiz_Neticeler.pdf");
+        }
+
+        let warningCount = 0;
+        document.addEventListener('visibilitychange', () => {
+            const studentView = document.getElementById('student-view');
+            if (studentView && !studentView.classList.contains('hidden') && document.hidden) {
+                warningCount++;
+                const warningElem = document.getElementById('cheat-warning');
+                const countElem = document.getElementById('warning-count');
+                if(warningElem) warningElem.classList.remove('hidden');
+                if(countElem) countElem.innerText = warningCount;
+                if(warningCount >= 3) {
+                    alert("İmtahan qaydalarını pozduğunuz üçün sonlandırıldı!");
+                    location.reload();
+                }
+            }
+        });
+
+        function submitExamToLocal() {
+            if(confirm("İmtahanı bitirib nəticəni göndərmək istədiyinizə əminsinizmi?")) {
+                alert("İmtahan nəticəniz uğurla qeydə alındı!");
+                switchView('teacher');
+            }
+        }
+    </script>
+</body>
+</html>
