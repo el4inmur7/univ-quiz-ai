@@ -94,33 +94,36 @@
                 </div>
             </div>
 
-            <!-- AI Sual Generatoru -->
+            <!-- AI Sual Generatoru (Fənn Seçimi ilə) -->
             <div class="card-box bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
                 <h2 class="text-xl font-bold flex items-center"><i class="fa-solid fa-robot app-accent-text mr-2"></i> Real Google Gemini AI Sual Generatoru</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="space-y-3">
                         <div>
-                            <label class="block text-sm font-medium mb-1">Prompt Şablonu Seçin:</label>
-                            <select id="ai-prompt-type" onchange="loadPromptTemplate()" class="w-full p-2.5 border rounded-lg text-sm">
-                                <option value="classic">Klassik & Standart (Test və Qısa Açıq)</option>
-                                <option value="analytical">Analitik & Praktiki (Keys tipli)</option>
-                                <option value="quiz">Sürətli Qiymətləndirmə (Mini-Quiz)</option>
+                            <label class="block text-sm font-medium mb-1">İmtahan Fənni Seçin:</label>
+                            <select id="ai-subject" class="w-full p-2.5 border rounded-lg text-sm font-semibold">
+                                <option value="Kompüter Arxitekturası">Kompüter Arxitekturası</option>
+                                <option value="Proqram Mühəndisliyi">Proqram Mühəndisliyi</option>
+                                <option value="Kibertəhlükəsizlik və Kriptoqrafiya">Kibertəhlükəsizlik və Kriptoqrafiya</option>
+                                <option value="Rəqəmsal Forensika">Rəqəmsal Forensika</option>
+                                <option value="İntellektual Sistemlər">İntellektual Sistemlər</option>
+                                <option value="Verilənlər Bazasının Modelləşdirilməsi">Verilənlər Bazasının Modelləşdirilməsi</option>
                             </select>
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1">Sualın Çətinlik Səviyyəsi:</label>
                             <select id="ai-difficulty" class="w-full p-2.5 border rounded-lg text-sm">
-                                <option value="easy">Asan (Baza biliklər)</option>
-                                <option value="medium" selected>Orta (Standart imtahan)</option>
-                                <option value="hard">Çətin (Analitik və tətbiqi)</option>
+                                <option value="Asan">Asan (Baza biliklər)</option>
+                                <option value="Orta" selected>Orta (Standart imtahan)</option>
+                                <option value="Çətin">Çətin (Analitik və tətbiqi)</option>
                             </select>
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium mb-1">Hazır Prompt Nümunəsi:</label>
-                        <textarea id="ai-prompt-text" rows="5" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətnini təhlil et və tələbələrin tətbiqi bacarıqlarını yoxlamaq üçün analitik 10 sayda sual yarat.</textarea>
+                        <label class="block text-sm font-medium mb-1">Hazır Prompt / Tapşırıq:</label>
+                        <textarea id="ai-prompt-text" rows="5" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətnini təhlil et və dəqiq 10 ədəd nömrələnmiş imtahan test sualı hazırla.</textarea>
                     </div>
 
                     <div class="space-y-3">
@@ -139,14 +142,25 @@
                 </div>
             </div>
 
-            <!-- Sual Bankı -->
+            <!-- Sual Bankı (Fənlərə Görə Filtrləmə ilə) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="card-box md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
-                    <div class="flex justify-between items-center">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
                         <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı</h3>
-                        <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-full font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
+                        <div class="flex items-center gap-2">
+                            <select id="filter-subject" onchange="loadQuestions()" class="p-1.5 border rounded-lg text-xs font-medium">
+                                <option value="Bütün Fənlər">Bütün Fənlər</option>
+                                <option value="Kompüter Arxitekturası">Kompüter Arxitekturası</option>
+                                <option value="Proqram Mühəndisliyi">Proqram Mühəndisliyi</option>
+                                <option value="Kibertəhlükəsizlik və Kriptoqrafiya">Kibertəhlükəsizlik və Kriptoqrafiya</option>
+                                <option value="Rəqəmsal Forensika">Rəqəmsal Forensika</option>
+                                <option value="İntellektual Sistemlər">İntellektual Sistemlər</option>
+                                <option value="Verilənlər Bazasının Modelləşdirilməsi">Verilənlər Bazasının Modelləşdirilməsi</option>
+                            </select>
+                            <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
+                        </div>
                     </div>
-                    <div id="question-bank-list" class="space-y-3">
+                    <div id="question-bank-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
                         <div class="p-4 border rounded-lg space-y-2 bg-gray-50">
                             <div class="flex justify-between items-start">
                                 <span class="font-bold text-sm">Məlumatlar yüklənir...</span>
@@ -323,31 +337,18 @@
             }
         }
 
-        function loadPromptTemplate() {
-            const typeElem = document.getElementById('ai-prompt-type');
-            const textarea = document.getElementById('ai-prompt-text');
-            if(!textarea || !typeElem) return;
-            
-            const type = typeElem.value;
-            if(type === 'classic') {
-                textarea.value = "Sənə təqdim olunan mühazirə mətninə əsasən 4 variantlı (A, B, C, D) tək seçimli test sualı hazırla.";
-            } else if(type === 'analytical') {
-                textarea.value = "Təqdim olunan mühazirə mətnini təhlil et və tələbələrin tətbiqi bacarıqlarını yoxlamaq üçün analitik 10 sayda sual yarat.";
-            } else if(type === 'quiz') {
-                textarea.value = "Verilmiş mətndən ən vacib məqamı seçərək qısa test sualı tərtib et.";
-            }
-        }
-
-        // Google Gemini AI Sual Generasiyası və Mətnin Tam Göstərilməsi
+        // Google Gemini AI Sual Generasiyası (10 sualın tək-tək ayrılıb Sual Bankına yazılması)
         async function generateAndSaveAIQuestions() {
             const textElem = document.getElementById('ai-lecture-text');
             const diffElem = document.getElementById('ai-difficulty');
             const promptElem = document.getElementById('ai-prompt-text');
+            const subjectElem = document.getElementById('ai-subject');
             if(!textElem) return;
 
             const lectureText = textElem.value;
-            const diff = diffElem ? diffElem.value : 'medium';
+            const diff = diffElem ? diffElem.value : 'Orta';
             const customPrompt = promptElem ? promptElem.value : '';
+            const subject = subjectElem ? subjectElem.value : 'Kompüter Arxitekturası';
             
             if(!lectureText) {
                 alert("Zəhmət olmasa əvvəlcə mühazirə mətni daxil edin!");
@@ -363,30 +364,61 @@
                     body: JSON.stringify({
                         contents: [{
                             parts: [{
-                                text: `${customPrompt}\n\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində ətraflı imtahan sualları tərtib et.`
+                                text: `${customPrompt}\n\nFənn: ${subject}\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində hər biri nömrələnmiş (1., 2., 3. və s.) dəqiq 10 ədəd imtahan sualı tərtib et.`
                             }]
                         }]
                     })
                 });
 
                 const result = await response.json();
-                let generatedText = "Sual mətni generasiya olundu.";
+                let generatedText = "";
 
                 if (result.candidates && result.candidates[0].content.parts[0].text) {
                     generatedText = result.candidates[0].content.parts[0].text;
                 }
 
+                // Generasiya olunan mətni sətirlərə bölərək ayrı-ayrı suallar şəklində çıxarırıq
+                let lines = generatedText.split('\n');
+                let extractedQuestions = [];
+                let currentQ = "";
+
+                lines.forEach(line => {
+                    let trimmed = line.trim();
+                    // Əgər sətir rəqəmlə başlayırsa (məsələn: "1.", "1)")
+                    if (/^\d+[\.\)]/.test(trimmed)) {
+                        if (currentQ) {
+                            extractedQuestions.push(currentQ.trim());
+                        }
+                        currentQ = trimmed;
+                    } else if (trimmed.length > 0) {
+                        currentQ += " " + trimmed;
+                    }
+                });
+                if (currentQ) {
+                    extractedQuestions.push(currentQ.trim());
+                }
+
+                // Əgər format uyğun gəlməzsə, bütöv mətni 1 sual kimi saxlayırıq
+                if (extractedQuestions.length === 0) {
+                    extractedQuestions.push(generatedText);
+                }
+
                 let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
-                localQuestions.unshift({
-                    question_text: generatedText,
-                    difficulty: diff,
-                    correct_answer: "Gemini AI Etalon Cavab",
-                    created_at: new Date().toLocaleString()
+
+                // Hər bir sualı ayrıca Sual Bankına əlavə edirik
+                extractedQuestions.forEach(qText => {
+                    localQuestions.unshift({
+                        subject: subject,
+                        question_text: qText,
+                        difficulty: diff,
+                        correct_answer: "Gemini AI Etalon Cavab",
+                        created_at: new Date().toLocaleString()
+                    });
                 });
 
                 localStorage.setItem('univ_local_questions', JSON.stringify(localQuestions));
 
-                alert("Gemini AI tərəfindən yaradılan suallar uğurla Sual Bankına əlavə olundu!");
+                alert(`Gemini AI ${extractedQuestions.length} ədəd sualı uğurla "${subject}" fənni üzrə Sual Bankına əlavə etdi!`);
                 textElem.value = "";
                 loadQuestions();
 
@@ -396,23 +428,33 @@
             }
         }
 
+        // Sual Bankını fənlərə görə yükləmək və göstərmək
         function loadQuestions() {
             const bankList = document.getElementById('question-bank-list');
+            const filterSubject = document.getElementById('filter-subject').value;
             let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
+
+            // Fənnə görə filtrləmə
+            if (filterSubject !== "Bütün Fənlər") {
+                localQuestions = localQuestions.filter(q => q.subject === filterSubject);
+            }
 
             if(bankList) {
                 if(localQuestions.length === 0) {
-                    bankList.innerHTML = '<div class="p-4 border rounded-lg text-xs text-gray-500">Hələ ki bazada sual yoxdur. Yuxarıdan AI ilə sual əlavə edin.</div>';
+                    bankList.innerHTML = '<div class="p-4 border rounded-lg text-xs text-gray-500 text-center">Bu fənn üzrə hələ ki sual yoxdur. Yuxarıdan AI ilə sual yaradın.</div>';
                 } else {
                     bankList.innerHTML = '';
                     localQuestions.forEach((q, index) => {
                         bankList.innerHTML += `
                             <div class="p-4 border rounded-lg space-y-2 bg-gray-50 shadow-sm">
-                                <div class="flex justify-between items-start">
-                                    <div class="font-bold text-sm whitespace-pre-line text-slate-800">${index + 1}. ${q.question_text}</div>
-                                    <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium">${q.difficulty}</span>
+                                <div class="flex justify-between items-start gap-2">
+                                    <div class="font-bold text-sm whitespace-pre-line text-slate-800">${index + 1}. [${q.subject || 'Ümumi'}] ${q.question_text}</div>
+                                    <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium whitespace-nowrap">${q.difficulty}</span>
                                 </div>
-                                <div class="text-xs text-gray-500 font-mono border-t pt-2">Tip: Test | Cavab: ${q.correct_answer} | Tarix: ${q.created_at}</div>
+                                <div class="text-xs text-gray-500 font-mono border-t pt-2 flex justify-between items-center">
+                                    <span>Tip: Test | Cavab: ${q.correct_answer}</span>
+                                    <span>Tarix: ${q.created_at}</span>
+                                </div>
                             </div>
                         `;
                     });
