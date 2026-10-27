@@ -54,14 +54,14 @@
                 </div>
 
                 <div class="flex items-center space-x-1.5 bg-black/10 px-2.5 py-1.5 rounded-lg text-xs">
-                    <button onclick="setTheme('theme-blue')" class="w-4 h-4 rounded-full bg-blue-600 border border-white cursor-pointer" title="Mavi"></button>
-                    <button onclick="setTheme('theme-emerald')" class="w-4 h-4 rounded-full bg-emerald-600 border border-white cursor-pointer" title="Yaşıl"></button>
-                    <button onclick="setTheme('theme-dark')" class="w-4 h-4 rounded-full bg-slate-900 border border-white cursor-pointer" title="Tünd"></button>
+                    <button id="theme-blue-btn" class="w-4 h-4 rounded-full bg-blue-600 border border-white cursor-pointer" title="Mavi"></button>
+                    <button id="theme-emerald-btn" class="w-4 h-4 rounded-full bg-emerald-600 border border-white cursor-pointer" title="Yaşıl"></button>
+                    <button id="theme-dark-btn" class="w-4 h-4 rounded-full bg-slate-900 border border-white cursor-pointer" title="Tünd"></button>
                 </div>
 
                 <div class="space-x-1" id="nav-actions">
-                    <button onclick="window.openLoginModal()" class="px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium hover:bg-white/30 transition cursor-pointer"><i class="fa-solid fa-right-to-bracket mr-1"></i> Sistemə Giriş</button>
-                    <button onclick="window.switchView('student')" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition cursor-pointer"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə Rejimi</button>
+                    <button id="btn-open-login" class="px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium hover:bg-white/30 transition cursor-pointer"><i class="fa-solid fa-right-to-bracket mr-1"></i> Sistemə Giriş</button>
+                    <button id="btn-student-mode" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition cursor-pointer"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə Rejimi</button>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
             </div>
             <h2 class="text-2xl font-bold">UnivQuiz AI İdarəetmə Portalına Xoş Gəlmisiniz</h2>
             <p class="text-sm text-gray-500">Sistemə daxil olmaq üçün korporativ istifadəçi adı və şifrənizdən istifadə edin.</p>
-            <button onclick="window.openLoginModal()" class="app-btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold shadow-md transition cursor-pointer">
+            <button id="btn-welcome-login" class="app-btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold shadow-md transition cursor-pointer">
                 <i class="fa-solid fa-key mr-2"></i> Hesaba Giriş Et
             </button>
         </div>
@@ -105,7 +105,7 @@
                         <input type="password" id="sys-admin-password" class="w-full p-2 border rounded text-xs" placeholder="******">
                     </div>
                     <div class="md:col-span-4">
-                        <button onclick="window.createKafedraAdmin()" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-purple-700 transition cursor-pointer">
+                        <button id="btn-create-kafedra" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-purple-700 transition cursor-pointer">
                             <i class="fa-solid fa-plus mr-1"></i> Kafedra Admini Yarat
                         </button>
                     </div>
@@ -144,7 +144,7 @@
                             <label class="block text-xs font-medium mb-1">Şifrə:</label>
                             <input type="password" id="kaf-teacher-password" class="w-full p-2 border rounded text-xs" placeholder="******">
                         </div>
-                        <button onclick="window.createTeacherAccount()" class="w-full bg-blue-600 text-white py-2 rounded text-xs font-semibold hover:bg-blue-700 transition cursor-pointer">
+                        <button id="btn-create-teacher" class="w-full bg-blue-600 text-white py-2 rounded text-xs font-semibold hover:bg-blue-700 transition cursor-pointer">
                             <i class="fa-solid fa-user-plus mr-1"></i> Müəllim Hesabını Yarat
                         </button>
                     </div>
@@ -163,7 +163,7 @@
                             <label class="block text-xs font-medium mb-1">Tələbə Qrupu / İxtisas:</label>
                             <input type="text" id="kaf-group-name" class="w-full p-2 border rounded text-xs" placeholder="II kurs (Qrup 521.22)">
                         </div>
-                        <button onclick="window.assignWorkloadToTeacher()" class="w-full bg-emerald-600 text-white py-2 rounded text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer">
+                        <button id="btn-assign-workload" class="w-full bg-emerald-600 text-white py-2 rounded text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer">
                             <i class="fa-solid fa-link mr-1"></i> Dərs Yükünü Təyin Et
                         </button>
                     </div>
@@ -187,7 +187,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button onclick="window.openProfileModal()" class="text-xs bg-slate-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-700 transition cursor-pointer">
+                    <button id="btn-open-profile" class="text-xs bg-slate-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-700 transition cursor-pointer">
                         <i class="fa-solid fa-user-gear mr-1"></i> Profil və Şifrə Dəyiş
                     </button>
                 </div>
@@ -224,7 +224,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1">Hazır Prompt / Tapşırıq:</label>
-                            <textarea id="ai-prompt-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətni əsasında dəqiq 10 ədəd nömrələnmiş (1., 2., 3...) imtahan sualı hazırla.</textarea>
+                            <textarea id="ai-prompt-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətni əsasında dəقiq 10 ədəd nömrələnmiş (1., 2., 3...) imtahan sualı hazırla.</textarea>
                         </div>
                     </div>
 
@@ -233,7 +233,7 @@
                             <label class="block text-sm font-medium mb-1">Mühazirə Materialı / Mətn:</label>
                             <textarea id="ai-lecture-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm" placeholder="Mövzuya aid mühazirə mətni daxil edin..."></textarea>
                         </div>
-                        <button onclick="window.generateAndSaveAIQuestions()" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md cursor-pointer">
+                        <button id="btn-generate-ai" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md cursor-pointer">
                             <i class="fa-solid fa-sparkles mr-2"></i> Gemini ilə Generasiya Et və Saxla
                         </button>
                     </div>
@@ -245,7 +245,7 @@
                 <div class="card-box md:col-span-2 bg-white p-6 rounded-xl shadow-sm border space-y-4">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı</h3>
-                        <button onclick="window.loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
+                        <button id="btn-reload-questions" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
                     </div>
                     <div id="question-bank-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2"></div>
                 </div>
@@ -263,4 +263,58 @@
             <div class="card-box bg-white p-6 rounded-xl shadow-md border no-select">
                 <div class="flex justify-between items-center border-b pb-4 mb-4">
                     <div>
-                        <h2 class="font-bold text-base">
+                        <h2 class="font-bold text-base">Kompüter Arxitekturası - İmtahan</h2>
+                        <p class="text-xs text-gray-500">Tələbə Rejimi</p>
+                    </div>
+                    <div class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg font-mono font-bold text-sm">14:59</div>
+                </div>
+                <div class="space-y-4 text-sm">
+                    <p class="font-medium">1. L1 keş yaddaşın əsas xüsusiyyəti hansıdır?</p>
+                    <label class="block p-3 border rounded-lg cursor-pointer hover:bg-gray-50"><input type="radio" name="q1" class="mr-2"> Prosessora ən yaxın və ən sürətli olması</label>
+                </div>
+                <button onclick="alert('İmtahan cavablarınız qeydə alındı!')" class="w-full mt-6 app-btn-primary py-3 rounded-lg font-medium shadow-md cursor-pointer">İmtahanı Bitir</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- GİRİŞ MODALI -->
+    <div id="login-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+            <button id="btn-close-login" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div class="text-center space-y-1">
+                <h3 class="font-bold text-xl text-slate-800">Sistemə Giriş</h3>
+                <p class="text-xs text-gray-500">Korporativ login və şifrənizi daxil edin</p>
+            </div>
+            
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-medium mb-1">İstifadəçi Adı (Username):</label>
+                    <input type="text" id="login-username" class="w-full p-2.5 border rounded-lg text-sm" placeholder="sysadmin, cs_admin, elcin_m">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium mb-1">Şifrə:</label>
+                    <input type="password" id="login-password" class="w-full p-2.5 border rounded-lg text-sm" placeholder="******">
+                </div>
+                <div class="flex justify-end">
+                    <button id="btn-open-forgot" class="text-xs text-blue-600 hover:underline cursor-pointer">Şifrəni unutmusunuz?</button>
+                </div>
+                <button id="btn-submit-login" class="w-full app-btn-primary py-2.5 rounded-lg text-sm font-semibold shadow-md transition cursor-pointer">
+                    <i class="fa-solid fa-right-to-bracket mr-1"></i> Daxil Ol
+                </button>
+            </div>
+
+            <div class="border-t pt-3 text-xs text-gray-400 space-y-1">
+                <div class="font-bold text-gray-500">Test Girişləri:</div>
+                <div><b>SysAdmin:</b> sysadmin / admin123</div>
+                <div><b>Kafedra Admin:</b> cs_admin / cs123</div>
+                <div><b>Müəllim:</b> elcin_m / teacher123</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFİL VƏ ŞİFRƏ DƏYİŞDİRMƏ MODALI -->
+    <div id="profile-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+            <button id="btn-close-profile" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3
