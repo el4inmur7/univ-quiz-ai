@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .no-select { user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
-        
         body.theme-blue { background-color: #f8fafc; color: #1e293b; }
         body.theme-blue .app-header { background-color: #1e3a8a; color: #ffffff; }
         body.theme-blue .app-btn-primary { background-color: #2563eb; color: #ffffff; }
@@ -37,7 +36,6 @@
 </head>
 <body class="theme-blue font-sans transition-colors duration-300">
 
-    <!-- Ümumi Naviqasiya Barı -->
     <header class="app-header shadow-md">
         <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center space-x-3">
@@ -62,8 +60,8 @@
                 </div>
 
                 <div class="space-x-1" id="nav-actions">
-                    <button onclick="openLoginModal()" class="px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium hover:bg-white/30 transition cursor-pointer"><i class="fa-solid fa-right-to-bracket mr-1"></i> Sistemə Giriş</button>
-                    <button onclick="switchView('student')" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition cursor-pointer"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə Rejimi</button>
+                    <button onclick="window.openLoginModal()" class="px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium hover:bg-white/30 transition cursor-pointer"><i class="fa-solid fa-right-to-bracket mr-1"></i> Sistemə Giriş</button>
+                    <button onclick="window.switchView('student')" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition cursor-pointer"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə Rejimi</button>
                 </div>
             </div>
         </div>
@@ -71,14 +69,13 @@
 
     <main class="container mx-auto px-4 py-6 space-y-6">
 
-        <!-- GİRİŞ SƏHİFƏSİ / DƏVƏT -->
         <div id="login-welcome-view" class="card-box bg-white p-10 rounded-2xl shadow-sm border text-center space-y-4 max-w-2xl mx-auto">
             <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto text-3xl">
                 <i class="fa-solid fa-shield-halved"></i>
             </div>
             <h2 class="text-2xl font-bold">UnivQuiz AI İdarəetmə Portalına Xoş Gəlmisiniz</h2>
             <p class="text-sm text-gray-500">Sistemə daxil olmaq üçün korporativ istifadəçi adı və şifrənizdən istifadə edin.</p>
-            <button onclick="openLoginModal()" class="app-btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold shadow-md transition cursor-pointer">
+            <button onclick="window.openLoginModal()" class="app-btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold shadow-md transition cursor-pointer">
                 <i class="fa-solid fa-key mr-2"></i> Hesaba Giriş Et
             </button>
         </div>
@@ -108,7 +105,7 @@
                         <input type="password" id="sys-admin-password" class="w-full p-2 border rounded text-xs" placeholder="******">
                     </div>
                     <div class="md:col-span-4">
-                        <button onclick="createKafedraAdmin()" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-purple-700 transition cursor-pointer">
+                        <button onclick="window.createKafedraAdmin()" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-purple-700 transition cursor-pointer">
                             <i class="fa-solid fa-plus mr-1"></i> Kafedra Admini Yarat
                         </button>
                     </div>
@@ -140,14 +137,14 @@
                             <input type="text" id="kaf-teacher-username" class="w-full p-2 border rounded text-xs" placeholder="elcin_m">
                         </div>
                         <div>
-                            <label class="block text-xs font-medium mb-1">Unikal Korporativ Mail (@sdu.edu.az):</label>
+                            <label class="block text-xs font-medium mb-1">Unikal Korporativ Mail:</label>
                             <input type="email" id="kaf-teacher-email" class="w-full p-2 border rounded text-xs" placeholder="elchin.mursudov@sdu.edu.az">
                         </div>
                         <div>
                             <label class="block text-xs font-medium mb-1">Şifrə:</label>
                             <input type="password" id="kaf-teacher-password" class="w-full p-2 border rounded text-xs" placeholder="******">
                         </div>
-                        <button onclick="createTeacherAccount()" class="w-full bg-blue-600 text-white py-2 rounded text-xs font-semibold hover:bg-blue-700 transition cursor-pointer">
+                        <button onclick="window.createTeacherAccount()" class="w-full bg-blue-600 text-white py-2 rounded text-xs font-semibold hover:bg-blue-700 transition cursor-pointer">
                             <i class="fa-solid fa-user-plus mr-1"></i> Müəllim Hesabını Yarat
                         </button>
                     </div>
@@ -166,7 +163,7 @@
                             <label class="block text-xs font-medium mb-1">Tələbə Qrupu / İxtisas:</label>
                             <input type="text" id="kaf-group-name" class="w-full p-2 border rounded text-xs" placeholder="II kurs (Qrup 521.22)">
                         </div>
-                        <button onclick="assignWorkloadToTeacher()" class="w-full bg-emerald-600 text-white py-2 rounded text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer">
+                        <button onclick="window.assignWorkloadToTeacher()" class="w-full bg-emerald-600 text-white py-2 rounded text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer">
                             <i class="fa-solid fa-link mr-1"></i> Dərs Yükünü Təyin Et
                         </button>
                     </div>
@@ -190,7 +187,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button onclick="openProfileModal()" class="text-xs bg-slate-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-700 transition cursor-pointer">
+                    <button onclick="window.openProfileModal()" class="text-xs bg-slate-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-700 transition cursor-pointer">
                         <i class="fa-solid fa-user-gear mr-1"></i> Profil və Şifrə Dəyiş
                     </button>
                 </div>
@@ -236,7 +233,7 @@
                             <label class="block text-sm font-medium mb-1">Mühazirə Materialı / Mətn:</label>
                             <textarea id="ai-lecture-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm" placeholder="Mövzuya aid mühazirə mətni daxil edin..."></textarea>
                         </div>
-                        <button onclick="generateAndSaveAIQuestions()" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md cursor-pointer">
+                        <button onclick="window.generateAndSaveAIQuestions()" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md cursor-pointer">
                             <i class="fa-solid fa-sparkles mr-2"></i> Gemini ilə Generasiya Et və Saxla
                         </button>
                     </div>
@@ -248,7 +245,7 @@
                 <div class="card-box md:col-span-2 bg-white p-6 rounded-xl shadow-sm border space-y-4">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı</h3>
-                        <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
+                        <button onclick="window.loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
                     </div>
                     <div id="question-bank-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2"></div>
                 </div>
@@ -266,172 +263,4 @@
             <div class="card-box bg-white p-6 rounded-xl shadow-md border no-select">
                 <div class="flex justify-between items-center border-b pb-4 mb-4">
                     <div>
-                        <h2 class="font-bold text-base">Kompüter Arxitekturası - İmtahan</h2>
-                        <p class="text-xs text-gray-500">Tələbə Rejimi</p>
-                    </div>
-                    <div class="bg-red-50 text-red-600 px-3 py-1.5 rounded-lg font-mono font-bold text-sm">14:59</div>
-                </div>
-                <div class="space-y-4 text-sm">
-                    <p class="font-medium">1. L1 keş yaddaşın əsas xüsusiyyəti hansıdır?</p>
-                    <label class="block p-3 border rounded-lg cursor-pointer hover:bg-gray-50"><input type="radio" name="q1" class="mr-2"> Prosessora ən yaxın və ən sürətli olması</label>
-                </div>
-                <button onclick="alert('İmtahan cavablarınız qeydə alındı!')" class="w-full mt-6 app-btn-primary py-3 rounded-lg font-medium shadow-md cursor-pointer">İmtahanı Bitir</button>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- GİRİŞ MODALI -->
-    <div id="login-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <div class="text-center space-y-1">
-                <h3 class="font-bold text-xl text-slate-800">Sistemə Giriş</h3>
-                <p class="text-xs text-gray-500">Korporativ login və şifrənizi daxil edin</p>
-            </div>
-            
-            <div class="space-y-3">
-                <div>
-                    <label class="block text-xs font-medium mb-1">İstifadəçi Adı (Username):</label>
-                    <input type="text" id="login-username" class="w-full p-2.5 border rounded-lg text-sm" placeholder="sysadmin, cs_admin, elcin_m">
-                </div>
-                <div>
-                    <label class="block text-xs font-medium mb-1">Şifrə:</label>
-                    <input type="password" id="login-password" class="w-full p-2.5 border rounded-lg text-sm" placeholder="******">
-                </div>
-                <div class="flex justify-end">
-                    <button onclick="openForgotPasswordModal()" class="text-xs text-blue-600 hover:underline cursor-pointer">Şifrəni unutmusunuz?</button>
-                </div>
-                <button onclick="handleLogin()" class="w-full app-btn-primary py-2.5 rounded-lg text-sm font-semibold shadow-md transition cursor-pointer">
-                    <i class="fa-solid fa-right-to-bracket mr-1"></i> Daxil Ol
-                </button>
-            </div>
-
-            <div class="border-t pt-3 text-xs text-gray-400 space-y-1">
-                <div class="font-bold text-gray-500">Test Girişləri:</div>
-                <div><b>SysAdmin:</b> sysadmin / admin123</div>
-                <div><b>Kafedra Admin:</b> cs_admin / cs123</div>
-                <div><b>Müəllim:</b> elcin_m / teacher123</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PROFİL VƏ ŞİFRƏ DƏYİŞDİRMƏ MODALI -->
-    <div id="profile-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-user-gear text-blue-600 mr-2"></i> Profil və Şifrə Tənzimləmələri</h3>
-            
-            <div class="space-y-3 text-xs">
-                <div>
-                    <label class="block font-medium mb-1">Ad Soyad:</label>
-                    <input type="text" id="prof-fullname" class="w-full p-2 border rounded">
-                </div>
-                <div>
-                    <label class="block font-medium mb-1">Korporativ E-poçt (Unikal Mail):</label>
-                    <input type="email" id="prof-email" class="w-full p-2 border rounded" readonly disabled>
-                </div>
-                <hr class="my-2">
-                <div>
-                    <label class="block font-medium mb-1">Köhnə Şifrə:</label>
-                    <input type="password" id="prof-old-pass" class="w-full p-2 border rounded" placeholder="Köhnə şifrə">
-                </div>
-                <div>
-                    <label class="block font-medium mb-1">Yeni Şifrə:</label>
-                    <input type="password" id="prof-new-pass" class="w-full p-2 border rounded" placeholder="Yeni şifrə">
-                </div>
-                <button onclick="updateUserProfile()" class="w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 transition cursor-pointer">
-                    Dəyişiklikləri Yadda Saxla
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ŞİFRƏ BƏRPA MODALI -->
-    <div id="forgot-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="closeForgotPasswordModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-key text-blue-600 mr-2"></i> Şifrənin Bərpası</h3>
-            <p class="text-xs text-gray-500">Universitetdə qeydiyyatdan keçmiş unikal korporativ e-poçt ünvanınızı daxil edin.</p>
-            
-            <div class="space-y-3 text-xs">
-                <div>
-                    <label class="block font-medium mb-1">Korporativ E-poçt:</label>
-                    <input type="email" id="forgot-email" class="w-full p-2.5 border rounded" placeholder="ad.soyad@sdu.edu.az">
-                </div>
-                <button onclick="sendPasswordResetLink()" class="w-full app-btn-primary py-2.5 rounded font-semibold transition cursor-pointer">
-                    Bərpa Linki Göndər
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const GEMINI_API_KEY = 'AQ.Ab8RN6KH4NJxh7245kp6dbq7X9_NDUFFKiMJl0hwanzBBW0NFQ';
-        let currentUser = null;
-
-        function initSystemDatabase() {
-            if (!localStorage.getItem('univ_users')) {
-                const defaultUsers = [
-                    { id: 1, role: 'sysadmin', username: 'sysadmin', password: 'admin123', email: 'sysadmin@sdu.edu.az', fullname: 'Sistem Administratoru', kafedra: 'Mərkəzi İnzibati' },
-                    { id: 2, role: 'kafedra_admin', username: 'cs_admin', password: 'cs123', email: 'cs.admin@sdu.edu.az', fullname: 'Kompüter Elmləri Kafedra Müdiri', kafedra: 'Kompüter Elmləri' },
-                    { id: 3, role: 'teacher', username: 'elcin_m', password: 'teacher123', email: 'elchin.mursudov@sdu.edu.az', fullname: 'Elçin Murşudov', kafedra: 'Kompüter Elmləri' }
-                ];
-                localStorage.setItem('univ_users', JSON.stringify(defaultUsers));
-            }
-
-            if (!localStorage.getItem('univ_workloads')) {
-                const defaultWorkloads = [
-                    { teacher_username: 'elcin_m', subject: 'Kompüter Arxitekturası', group: 'II kurs (Qrup 521.22)' },
-                    { teacher_username: 'elcin_m', subject: 'Paylanmış Sistemlər', group: 'III kurs (Qrup 530.21)' }
-                ];
-                localStorage.setItem('univ_workloads', JSON.stringify(defaultWorkloads));
-            }
-        }
-
-        window.onload = function() {
-            initSystemDatabase();
-            
-            // Əgər əvvəldən daxil olunubsa, yaddaşdan oxuya bilərik, amma indi təmiz başlamaq üçün ləğv edirik
-            const currentUrl = window.location.href.split('?')[0];
-            const linkElem = document.getElementById('exam-link-text');
-            if(linkElem) linkElem.innerText = currentUrl;
-        };
-
-        function openLoginModal() { 
-            const modal = document.getElementById('login-modal');
-            if(modal) modal.classList.remove('hidden'); 
-        }
-        
-        function closeLoginModal() { 
-            const modal = document.getElementById('login-modal');
-            if(modal) modal.classList.add('hidden'); 
-        }
-        
-        function openProfileModal() {
-            if(!currentUser) return;
-            document.getElementById('prof-fullname').value = currentUser.fullname;
-            document.getElementById('prof-email').value = currentUser.email || '';
-            document.getElementById('prof-old-pass').value = '';
-            document.getElementById('prof-new-pass').value = '';
-            document.getElementById('profile-modal').classList.remove('hidden');
-        }
-        function closeProfileModal() { document.getElementById('profile-modal').classList.add('hidden'); }
-
-        function openForgotPasswordModal() {
-            closeLoginModal();
-            document.getElementById('forgot-email').value = '';
-            document.getElementById('forgot-modal').classList.remove('hidden');
-        }
-        function closeForgotPasswordModal() { document.getElementById('forgot-modal').classList.add('hidden'); }
-
-        function sendPasswordResetLink() {
-            const email = document.getElementById('forgot-email').value.trim();
-            if(!email) { alert("E-poçt ünvanını daxil edin!"); return; }
-            const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
-            const user = users.find(u => u.email === email);
-            if(!user) {
-                alert("Bu korporativ e-poçt sistemdə tapılmadı!");
-                return;
-            }
-            alert(`Şifrə
+                        <h2 class="font-bold text-base">
