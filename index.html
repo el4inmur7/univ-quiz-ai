@@ -94,35 +94,45 @@
                 </div>
             </div>
 
-            <!-- AI Sual Generatoru (Sərbəst Fənn Adı Girişi ilə) -->
+            <!-- AI Sual Generatoru (Fənn, Qrup və Mühazirə Başlığı ilə) -->
             <div class="card-box bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
                 <h2 class="text-xl font-bold flex items-center"><i class="fa-solid fa-robot app-accent-text mr-2"></i> Real Google Gemini AI Sual Generatoru</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="space-y-3">
                         <div>
-                            <label class="block text-sm font-medium mb-1">İmtahan Fənninin Adı (Sərbəst daxil edin):</label>
-                            <input type="text" id="ai-subject" class="w-full p-2.5 border rounded-lg text-sm font-medium" placeholder="Məsələn: Kompüter Arxitekturası" value="Kompüter Arxitekturası">
+                            <label class="block text-sm font-medium mb-1">İmtahan Fənni:</label>
+                            <input type="text" id="ai-subject" class="w-full p-2.5 border rounded-lg text-sm font-medium" value="Kompüter Arxitekturası">
                         </div>
                         <div>
+                            <label class="block text-sm font-medium mb-1">Tələbə Qrupu / Kurs:</label>
+                            <input type="text" id="ai-group" class="w-full p-2.5 border rounded-lg text-sm font-medium" placeholder="Məsələn: II kurs (Qrup 521.22)">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Mühazirə Nömrəsi və Başlığı:</label>
+                            <input type="text" id="ai-lecture-title" class="w-full p-2.5 border rounded-lg text-sm font-medium" placeholder="Məsələn: Mühazirə 10: Keş yaddaş iyerarxiyası">
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div>
                             <label class="block text-sm font-medium mb-1">Sualın Çətinlik Səviyyəsi:</label>
-                            <select id="ai-difficulty" class="w-full p-2.5 border rounded-lg text-sm">
+                            <select id="ai-difficulty" class="w-full p-2.5 border rounded-lg text-sm mb-3">
                                 <option value="Asan">Asan (Baza biliklər)</option>
                                 <option value="Orta" selected>Orta (Standart imtahan)</option>
                                 <option value="Çətin">Çətin (Analitik və tətbiqi)</option>
                             </select>
                         </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Hazır Prompt / Tapşırıq:</label>
-                        <textarea id="ai-prompt-text" rows="5" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətnini təhlil et və dəqiq 10 ədəd nömrələnmiş (1., 2., 3...) imtahan sualı hazırla.</textarea>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Hazır Prompt / Tapşırıq:</label>
+                            <textarea id="ai-prompt-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətnini təhlil et və dəqiq 10 ədəd nömrələnmiş (1., 2., 3...) imtahan sualı hazırla.</textarea>
+                        </div>
                     </div>
 
                     <div class="space-y-3">
                         <div>
                             <label class="block text-sm font-medium mb-1">Mühazirə Materialı / Mətn:</label>
-                            <textarea id="ai-lecture-text" rows="2" class="w-full p-2.5 border rounded-lg text-sm" placeholder="Mövzuya aid mühazirə mətni daxil edin..."></textarea>
+                            <textarea id="ai-lecture-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm" placeholder="Mövzuya aid mühazirə mətni daxil edin..."></textarea>
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1">Suala Sxem / Şəkil Əlavə Et:</label>
@@ -135,12 +145,15 @@
                 </div>
             </div>
 
-            <!-- Sual Bankı -->
+            <!-- Sual Bankı (Qrup və Mühazirəyə görə filtr ilə) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="card-box md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı</h3>
-                        <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                        <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı (Mühazirə və Qruplar Üzrə)</h3>
+                        <div class="flex items-center gap-2">
+                            <input type="text" id="filter-search" oninput="loadQuestions()" placeholder="Qrup və ya mühazirə ilə axtar..." class="p-1.5 border rounded-lg text-xs font-medium">
+                            <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
+                        </div>
                     </div>
                     <div id="question-bank-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
                         <div class="p-4 border rounded-lg space-y-2 bg-gray-50">
@@ -319,26 +332,25 @@
             }
         }
 
-        // Google Gemini AI Sual Generasiyası (Sərbəst Fənn Adı və 10 sualın tək-tək ayrılması)
+        // Google Gemini AI Sual Generasiyası (Fənn, Qrup və Mühazirə Başlığı ilə)
         async function generateAndSaveAIQuestions() {
             const textElem = document.getElementById('ai-lecture-text');
             const diffElem = document.getElementById('ai-difficulty');
             const promptElem = document.getElementById('ai-prompt-text');
             const subjectElem = document.getElementById('ai-subject');
+            const groupElem = document.getElementById('ai-group');
+            const lectureTitleElem = document.getElementById('ai-lecture-title');
             if(!textElem) return;
 
             const lectureText = textElem.value;
             const diff = diffElem ? diffElem.value : 'Orta';
             const customPrompt = promptElem ? promptElem.value : '';
-            const subject = subjectElem ? subjectElem.value.trim() : 'Ümumi Fənn';
+            const subject = subjectElem ? subjectElem.value.trim() : 'Kompüter Arxitekturası';
+            const groupName = groupElem ? groupElem.value.trim() : 'Ümumi Qrup';
+            const lectureTitle = lectureTitleElem ? lectureTitleElem.value.trim() : 'Mühazirə';
             
             if(!lectureText) {
                 alert("Zəhmət olmasa əvvəlcə mühazirə mətni daxil edin!");
-                return;
-            }
-
-            if(!subject) {
-                alert("Zəhmət olmasa imtahan fənninin adını qeyd edin!");
                 return;
             }
 
@@ -351,7 +363,7 @@
                     body: JSON.stringify({
                         contents: [{
                             parts: [{
-                                text: `${customPrompt}\n\nFənn: ${subject}\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində hər biri nömrələnmiş (1., 2., 3. və s.) dəqiq 10 ədəd imtahan sualı tərtib et.`
+                                text: `${customPrompt}\n\nFənn: ${subject}\nQrup: ${groupName}\nMövzu/Mühazirə: ${lectureTitle}\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində hər biri nömrələnmiş (1., 2., 3. və s.) dəqiq 10 ədəd imtahan sualı tərtib et.`
                             }]
                         }]
                     })
@@ -364,7 +376,7 @@
                     generatedText = result.candidates[0].content.parts[0].text;
                 }
 
-                // Generasiya olunan mətni sətirlərə bölərək ayrı-ayrı suallar şəklində çıxarırıq
+                // Generasiya olunan mətni ayrı-ayrı suallara bölürük
                 let lines = generatedText.split('\n');
                 let extractedQuestions = [];
                 let currentQ = "";
@@ -393,6 +405,8 @@
                 extractedQuestions.forEach(qText => {
                     localQuestions.unshift({
                         subject: subject,
+                        group: groupName,
+                        lecture_title: lectureTitle,
                         question_text: qText,
                         difficulty: diff,
                         correct_answer: "Gemini AI Etalon Cavab",
@@ -402,7 +416,7 @@
 
                 localStorage.setItem('univ_local_questions', JSON.stringify(localQuestions));
 
-                alert(`Gemini AI ${extractedQuestions.length} ədəd sualı uğurla "${subject}" fənni üzrə Sual Bankına əlavə etdi!`);
+                alert(`Gemini AI ${extractedQuestions.length} ədəd sualı "${groupName}" - "${lectureTitle}" üzrə Sual Bankına əlavə etdi!`);
                 textElem.value = "";
                 loadQuestions();
 
@@ -412,87 +426,21 @@
             }
         }
 
+        // Sual Bankını qrup və mühazirə başlıqlarına görə göstərmək
         function loadQuestions() {
             const bankList = document.getElementById('question-bank-list');
+            const searchKeyword = document.getElementById('filter-search').value.toLowerCase();
             let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
+
+            // Axtarış / Filtrləmə
+            if (searchKeyword) {
+                localQuestions = localQuestions.filter(q => 
+                    (q.group && q.group.toLowerCase().includes(searchKeyword)) || 
+                    (q.lecture_title && q.lecture_title.toLowerCase().includes(searchKeyword)) ||
+                    (q.subject && q.subject.toLowerCase().includes(searchKeyword))
+                );
+            }
 
             if(bankList) {
                 if(localQuestions.length === 0) {
-                    bankList.innerHTML = '<div class="p-4 border rounded-lg text-xs text-gray-500 text-center">Hələ ki bazada sual yoxdur. Yuxarıdan AI ilə fənn üzrə sual yaradın.</div>';
-                } else {
-                    bankList.innerHTML = '';
-                    localQuestions.forEach((q, index) => {
-                        bankList.innerHTML += `
-                            <div class="p-4 border rounded-lg space-y-2 bg-gray-50 shadow-sm">
-                                <div class="flex justify-between items-start gap-2">
-                                    <div class="font-bold text-sm whitespace-pre-line text-slate-800">${index + 1}. <span class="text-blue-600">[${q.subject || 'Ümumi'}]</span> ${q.question_text}</div>
-                                    <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium whitespace-nowrap">${q.difficulty}</span>
-                                </div>
-                                <div class="text-xs text-gray-500 font-mono border-t pt-2 flex justify-between items-center">
-                                    <span>Tip: Test | Cavab: ${q.correct_answer}</span>
-                                    <span>Tarix: ${q.created_at}</span>
-                                </div>
-                            </div>
-                        `;
-                    });
-                }
-            }
-        }
-
-        function generateCoGraderLink() {
-            const secureLink = window.location.href.split('?')[0] + "?co_grader=secure_token_xyz999";
-            navigator.clipboard.writeText(secureLink);
-            alert("Açıq sualların yoxlanılması üçün təhlükəsiz yoxlama linki kopyalandı:\n" + secureLink);
-        }
-
-        function sendReportEmail() {
-            const emailElem = document.getElementById('report-email');
-            if(!emailElem) return;
-            const email = emailElem.value;
-            if(!email) {
-                alert("Zəhmət olmasa qrup nümayəndəsinin e-poçt ünvanını daxil edin!");
-                return;
-            }
-            alert(`İmtahan nəticələri uğurla ${email} ünvanına göndərildi!`);
-        }
-
-        function exportToExcel() {
-            let table = document.getElementById("results-table");
-            if(!table) return;
-            let wb = XLSX.utils.table_to_book(table, {sheet: "Imtahan Neticeleri"});
-            XLSX.writeFile(wb, "UnivQuiz_Neticeler.xlsx");
-        }
-
-        function exportToPDF() {
-            const { jsPDF } = window.jspdf;
-            let doc = new jsPDF();
-            doc.text("UnivQuiz AI - Imtahan Neticeleri Hesabati", 14, 15);
-            doc.autoTable({ html: '#results-table', startY: 25, theme: 'grid' });
-            doc.save("UnivQuiz_Neticeler.pdf");
-        }
-
-        let warningCount = 0;
-        document.addEventListener('visibilitychange', () => {
-            const studentView = document.getElementById('student-view');
-            if (studentView && !studentView.classList.contains('hidden') && document.hidden) {
-                warningCount++;
-                const warningElem = document.getElementById('cheat-warning');
-                const countElem = document.getElementById('warning-count');
-                if(warningElem) warningElem.classList.remove('hidden');
-                if(countElem) countElem.innerText = warningCount;
-                if(warningCount >= 3) {
-                    alert("İmtahan qaydalarını pozduğunuz üçün sonlandırıldı!");
-                    location.reload();
-                }
-            }
-        });
-
-        function submitExamToLocal() {
-            if(confirm("İmtahanı bitirib nəticəni göndərmək istədiyinizə əminsinizmi?")) {
-                alert("İmtahan nəticəniz uğurla qeydə alındı!");
-                switchView('teacher');
-            }
-        }
-    </script>
-</body>
-</html>
+                    bankList.innerHTML = '<div class="p-4 border rounded-lg text-xs text-gray-500 text-center">Uyğun gələn sual tapılmadı.</div>';
