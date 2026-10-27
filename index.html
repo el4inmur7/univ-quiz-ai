@@ -393,41 +393,40 @@
             if(linkElem) linkElem.innerText = currentUrl;
         };
 
-        // Bütün funksiyalar birbaşa qlobal window səviyyəsində təyin olunur
-        window.openLoginModal = function() {
+        function openLoginModal() {
             const modal = document.getElementById('login-modal');
             if(modal) modal.classList.remove('hidden');
-        };
+        }
         
-        window.closeLoginModal = function() {
+        function closeLoginModal() {
             const modal = document.getElementById('login-modal');
             if(modal) modal.classList.add('hidden');
-        };
+        }
         
-        window.openProfileModal = function() {
+        function openProfileModal() {
             if(!currentUser) return;
             document.getElementById('prof-fullname').value = currentUser.fullname;
             document.getElementById('prof-email').value = currentUser.email || '';
             document.getElementById('prof-old-pass').value = '';
             document.getElementById('prof-new-pass').value = '';
             document.getElementById('profile-modal').classList.remove('hidden');
-        };
+        }
         
-        window.closeProfileModal = function() {
+        function closeProfileModal() {
             document.getElementById('profile-modal').classList.add('hidden');
-        };
+        }
 
-        window.openForgotPasswordModal = function() {
-            window.closeLoginModal();
+        function openForgotPasswordModal() {
+            closeLoginModal();
             document.getElementById('forgot-email').value = '';
             document.getElementById('forgot-modal').classList.remove('hidden');
-        };
+        }
         
-        window.closeForgotPasswordModal = function() {
+        function closeForgotPasswordModal() {
             document.getElementById('forgot-modal').classList.add('hidden');
-        };
+        }
 
-        window.sendPasswordResetLink = function() {
+        function sendPasswordResetLink() {
             const email = document.getElementById('forgot-email').value.trim();
             if(!email) { alert("E-poçt ünvanını daxil edin!"); return; }
             const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
@@ -437,10 +436,10 @@
                 return;
             }
             alert(`Şifrə sıfırlama təlimatı uğurla ${email} ünvanına göndərildi! (Simulyasiya)`);
-            window.closeForgotPasswordModal();
-        };
+            closeForgotPasswordModal();
+        }
 
-        window.updateUserProfile = function() {
+        function updateUserProfile() {
             const newName = document.getElementById('prof-fullname').value.trim();
             const oldPass = document.getElementById('prof-old-pass').value;
             const newPass = document.getElementById('prof-new-pass').value;
@@ -470,11 +469,11 @@
                 document.getElementById('teacher-display-name').innerText = newName;
             }
 
-            window.closeProfileModal();
+            closeProfileModal();
             alert("Profil uğurla yeniləndi!");
-        };
+        }
 
-        window.handleLogin = function() {
+        function handleLogin() {
             const uInput = document.getElementById('login-username').value.trim();
             const pInput = document.getElementById('login-password').value.trim();
             const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
@@ -483,9 +482,9 @@
             if (!foundUser) { alert("İstifadəçi adı və ya şifrə yanlışdır!"); return; }
 
             currentUser = foundUser;
-            window.closeLoginModal();
+            closeLoginModal();
             setupDashboardForUser();
-        };
+        }
 
         function setupDashboardForUser() {
             document.getElementById('login-welcome-view').classList.add('hidden');
@@ -530,12 +529,12 @@
             }
         }
 
-        window.logout = function() { 
+        function logout() { 
             currentUser = null; 
             location.reload(); 
-        };
+        }
 
-        window.createKafedraAdmin = function() {
+        function createKafedraAdmin() {
             const kname = document.getElementById('sys-kafedra-name').value.trim();
             const uname = document.getElementById('sys-admin-username').value.trim();
             const email = document.getElementById('sys-admin-email').value.trim();
@@ -553,7 +552,7 @@
             document.getElementById('sys-admin-password').value = '';
             loadSysAdminData();
             alert("Kafedra Admini uğurla yaradıldı!");
-        };
+        }
 
         function loadSysAdminData() {
             const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
@@ -566,7 +565,7 @@
             });
         }
 
-        window.createTeacherAccount = function() {
+        function createTeacherAccount() {
             const fname = document.getElementById('kaf-teacher-fullname').value.trim();
             const uname = document.getElementById('kaf-teacher-username').value.trim();
             const email = document.getElementById('kaf-teacher-email').value.trim();
@@ -584,9 +583,9 @@
             document.getElementById('kaf-teacher-password').value = '';
             loadKafedraAdminData();
             alert("Müəllim hesabı yaradıldı!");
-        };
+        }
 
-        window.assignWorkloadToTeacher = function() {
+        function assignWorkloadToTeacher() {
             const tUname = document.getElementById('kaf-select-teacher').value;
             const sub = document.getElementById('kaf-subject-name').value.trim();
             const grp = document.getElementById('kaf-group-name').value.trim();
@@ -601,7 +600,7 @@
             document.getElementById('kaf-group-name').value = '';
             loadKafedraAdminData();
             alert("Dərs yükü müəllimə bağlandı!");
-        };
+        }
 
         function loadKafedraAdminData() {
             const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
@@ -624,7 +623,7 @@
             });
         }
 
-        window.loadTeacherDashboard = function() {
+        function loadTeacherDashboard() {
             const workloads = JSON.parse(localStorage.getItem('univ_workloads') || '[]');
             const myLoads = workloads.filter(w => w.teacher_username === currentUser.username);
 
@@ -637,10 +636,10 @@
             if(subjectSelect) subjectSelect.innerHTML = mySubjects.map(s => `<option value="${s}">${s}</option>`).join('') || '<option>Təyin olunmuş fənn yoxdur</option>';
             if(groupSelect) groupSelect.innerHTML = myGroups.map(g => `<option value="${g}">${g}</option>`).join('') || '<option>Təyin olunmuş qrup yoxdur</option>';
 
-            window.loadQuestions();
-        };
+            loadQuestions();
+        }
 
-        window.generateAndSaveAIQuestions = async function() {
+        async function generateAndSaveAIQuestions() {
             const textElem = document.getElementById('ai-lecture-text');
             const diffElem = document.getElementById('ai-difficulty');
             const promptElem = document.getElementById('ai-prompt-text');
@@ -706,15 +705,15 @@
                 localStorage.setItem('univ_local_questions', JSON.stringify(localQuestions));
                 alert(`10 ədəd sual uğurla Sual Bankına əlavə olundu!`);
                 textElem.value = "";
-                window.loadQuestions();
+                loadQuestions();
 
             } catch(err) {
                 console.error("AI xətası:", err);
                 alert("Süni intellekt ilə əlaqə zamanı xəta baş verdi.");
             }
-        };
+        }
 
-        window.loadQuestions = function() {
+        function loadQuestions() {
             const bankList = document.getElementById('question-bank-list');
             if(!bankList || !currentUser) return;
 
@@ -745,9 +744,9 @@
                     `;
                 });
             }
-        };
+        }
 
-        window.switchView = function(view) {
+        function switchView(view) {
             if(view === 'student') {
                 document.getElementById('login-welcome-view').classList.add('hidden');
                 document.getElementById('sysadmin-view').classList.add('hidden');
@@ -755,11 +754,11 @@
                 document.getElementById('teacher-view').classList.add('hidden');
                 document.getElementById('student-view').classList.remove('hidden');
             }
-        };
+        }
 
-        window.setTheme = function(themeName) { 
+        function setTheme(themeName) { 
             document.body.className = themeName + " font-sans transition-colors duration-300"; 
-        };
+        }
     </script>
 </body>
 </html>
