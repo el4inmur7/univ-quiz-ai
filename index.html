@@ -38,7 +38,7 @@
 </head>
 <body class="theme-blue font-sans transition-colors duration-300">
 
-    <!-- Ümumi Naviqasiya, Profil və Tema Seçimi -->
+    <!-- Ümumi Naviqasiya və Profil -->
     <header class="app-header shadow-md">
         <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center gap-3">
             <div class="flex items-center space-x-3">
@@ -85,37 +85,41 @@
                         </label>
                     </div>
                     <div>
-                        <input type="text" id="input-prof-name" value="Elçin müəllim" class="font-bold border-b bg-transparent focus:outline-none text-sm px-1 py-0.5" oninput="syncProfileInfo()">
+                        <select id="select-active-teacher" onchange="changeActiveTeacher()" class="font-bold border-b bg-transparent focus:outline-none text-sm px-1 py-0.5 cursor-pointer">
+                            <!-- Dinamik olaraq müəllimlər yüklənəcək -->
+                        </select>
                         <div class="text-xs text-gray-500">Sumqayıt Dövlət Universiteti | Kompüter Elmləri Kafedrası</div>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
                     <button onclick="openAdminModal()" class="text-xs bg-slate-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-700 transition cursor-pointer">
-                        <i class="fa-solid fa-user-shield mr-1"></i> Kafedra Admini (Fənn Əlavə Et)
+                        <i class="fa-solid fa-user-shield mr-1"></i> Kafedra Admini (Dərs Yükü İdarəetməsi)
                     </button>
                     <span id="db-status" class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
                 </div>
             </div>
 
-            <!-- AI Sual Generatoru (Kafedra Bazasından Seçimlə) -->
+            <!-- AI Sual Generatoru (Yalnız Müəllimin Öz Dərs Yükü ilə) -->
             <div class="card-box bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
                 <h2 class="text-xl font-bold flex items-center"><i class="fa-solid fa-robot app-accent-text mr-2"></i> Real Google Gemini AI Sual Generatoru</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="space-y-3">
                         <div>
-                            <label class="block text-sm font-medium mb-1">Kafedra Bazasından Fənn Seçin:</label>
+                            <label class="block text-sm font-medium mb-1">Tədris etdiyiniz Fənn:</label>
                             <select id="ai-subject" class="w-full p-2.5 border rounded-lg text-sm font-semibold bg-gray-50">
-                                <!-- JavaScript dinamik dolduracaq -->
+                                <!-- Müəllimin fənləri -->
                             </select>
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1">Tələbə Qrupu / Kurs:</label>
-                            <input type="text" id="ai-group" class="w-full p-2.5 border rounded-lg text-sm font-medium" placeholder="Məsələn: II kurs (Qrup 521.22)">
+                            <select id="ai-group" class="w-full p-2.5 border rounded-lg text-sm font-semibold bg-gray-50">
+                                <!-- Müəllimin qrupları -->
+                            </select>
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1">Mühazirə Nömrəsi və Başlığı:</label>
-                            <input type="text" id="ai-lecture-title" class="w-full p-2.5 border rounded-lg text-sm font-medium" placeholder="Məsələn: Mühazirə 10: Keş yaddaş iyerarxiyası">
+                            <input type="text" id="ai-lecture-title" class="w-full p-2.5 border rounded-lg text-sm font-medium" placeholder="Məsələn: Mühazirə 10: Keş yaddaş">
                         </div>
                     </div>
 
@@ -130,7 +134,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1">Hazır Prompt / Tapşırıq:</label>
-                            <textarea id="ai-prompt-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətnini təhlil et və dəqiq 10 ədəd nömrələnmiş (1., 2., 3...) imtahan sualı hazırla.</textarea>
+                            <textarea id="ai-prompt-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətni əsasında dəqiq 10 ədəd nömrələnmiş (1., 2., 3...) imtahan sualı hazırla.</textarea>
                         </div>
                     </div>
 
@@ -154,9 +158,9 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="card-box md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
-                        <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı (Mühazirə və Qruplar Üzrə)</h3>
+                        <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı (Müəllim Dərs Yükü Üzrə)</h3>
                         <div class="flex items-center gap-2">
-                            <input type="text" id="filter-search" oninput="loadQuestions()" placeholder="Fənn, qrup və ya mühazirə ilə axtar..." class="p-1.5 border rounded-lg text-xs font-medium">
+                            <input type="text" id="filter-search" oninput="loadQuestions()" placeholder="Axtarış..." class="p-1.5 border rounded-lg text-xs font-medium">
                             <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
                         </div>
                     </div>
@@ -271,26 +275,37 @@
 
     </main>
 
-    <!-- KAFEDRA ADMIN MODALI (Fənn əlavə etmək üçün) -->
+    <!-- KAFEDRA ADMIN MODALI (Dərs Yükü İdarəetməsi) -->
     <div id="admin-modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-xl max-w-md w-full p-6 space-y-4 shadow-xl">
+        <div class="bg-white rounded-xl max-w-lg w-full p-6 space-y-4 shadow-xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-user-shield text-blue-600 mr-2"></i> Kafedra Admini: Fənn İdarəetməsi</h3>
+                <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-user-shield text-blue-600 mr-2"></i> Kafedra Admini: Dərs Yükü İdarəetməsi</h3>
                 <button onclick="closeAdminModal()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <p class="text-xs text-gray-500">Kafedra üzrə rəsmi fənn adlarını buraya daxil edin ki, müəllimlər vahid bazadan seçə bilsinlər.</p>
-            <div class="space-y-3">
+            <p class="text-xs text-gray-500">Hansı müəllimin hansı fənn və qrupları tədris etdiyini buradan təyin edin.</p>
+            
+            <div class="space-y-3 bg-gray-50 p-3 rounded-lg border">
+                <h4 class="font-bold text-xs text-slate-700">Yeni Dərs Yükü Təyin Et</h4>
                 <div>
-                    <label class="block text-xs font-medium mb-1">Yeni Fənnin Rəsmi Adı:</label>
-                    <input type="text" id="new-subject-name" class="w-full p-2.5 border rounded-lg text-sm" placeholder="Məsələn: Süni İntellektin Əsasları">
+                    <label class="block text-xs font-medium mb-1">Müəllim Adı:</label>
+                    <input type="text" id="admin-teacher-name" class="w-full p-2 border rounded text-xs" placeholder="Məsələn: Elçin müəllim">
                 </div>
-                <button onclick="addNewSubjectToDatabase()" class="w-full bg-blue-600 text-white py-2.5 rounded-lg text-xs font-semibold hover:bg-blue-700 transition">
-                    <i class="fa-solid fa-plus mr-1"></i> Bazaya Fənn Əlavə Et
+                <div>
+                    <label class="block text-xs font-medium mb-1">Fənn:</label>
+                    <input type="text" id="admin-teacher-subject" class="w-full p-2 border rounded text-xs" placeholder="Məsələn: Kompüter Arxitekturası">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium mb-1">Qrup / Kurs:</label>
+                    <input type="text" id="admin-teacher-group" class="w-full p-2 border rounded text-xs" placeholder="Məsələn: II kurs (Qrup 521.22)">
+                </div>
+                <button onclick="addTeacherWorkload()" class="w-full bg-blue-600 text-white py-2 rounded text-xs font-semibold hover:bg-blue-700 transition">
+                    <i class="fa-solid fa-plus mr-1"></i> Dərs Yükünü Əlavə Et
                 </button>
             </div>
+
             <div class="border-t pt-3">
-                <span class="text-xs font-bold text-gray-600">Mövcud Kafedra Fənləri:</span>
-                <div id="admin-subjects-list" class="mt-2 space-y-1 max-h-36 overflow-y-auto text-xs text-gray-700"></div>
+                <span class="text-xs font-bold text-gray-600">Mövcud Müəllim Dərs Yükləri:</span>
+                <div id="admin-workload-list" class="mt-2 space-y-1.5 max-h-40 overflow-y-auto text-xs text-gray-700"></div>
             </div>
         </div>
     </div>
@@ -298,26 +313,22 @@
     <script>
         const GEMINI_API_KEY = 'AQ.Ab8RN6KH4NJxh7245kp6dbq7X9_NDUFFKiMJl0hwanzBBW0NFQ';
         
-        // Standart Kafedra Fənləri Bazası
-        function getSubjectsDatabase() {
-            let subjects = JSON.parse(localStorage.getItem('univ_kafedra_subjects'));
-            if (!subjects || subjects.length === 0) {
-                subjects = [
-                    "Kompüter Arxitekturası",
-                    "Proqram Mühəndisliyi",
-                    "Kibertəhlükəsizliyin əsasları",
-                    "Rəqəmsal Ekspertiza",
-                    "İstifadəçi interfeysinin layihələndirilməsi",
-                    "Paylanmış Sistemlər",
-                    "Kompüterlərdə modelləşdirmə"
+        // Standart Dərs Yükləri Bazası
+        function getWorkloadDatabase() {
+            let workload = JSON.parse(localStorage.getItem('univ_teacher_workloads'));
+            if (!workload || workload.length === 0) {
+                workload = [
+                    { teacher: "Elçin müəllim", subject: "Kompüter Arxitekturası", group: "II kurs (Qrup 521.22)" },
+                    { teacher: "Elçin müəllim", subject: "Paylanmış Sistemlər", group: "III kurs (Qrup 530.21)" },
+                    { teacher: "Anar müəllim", subject: "Proqram Mühəndisliyi", group: "IV kurs (Qrup 512.21)" }
                 ];
-                localStorage.setItem('univ_kafedra_subjects', JSON.stringify(subjects));
+                localStorage.setItem('univ_teacher_workloads', JSON.stringify(workload));
             }
-            return subjects;
+            return workload;
         }
 
         window.onload = function() {
-            initSubjectsDropdown();
+            initTeacherSelector();
             loadQuestions();
             
             const currentUrl = window.location.href.split('?')[0];
@@ -335,68 +346,103 @@
             }
         };
 
-        // Fənn siyahısını doldurmaq
-        function initSubjectsDropdown() {
-            const selectElem = document.getElementById('ai-subject');
-            const subjects = getSubjectsDatabase();
-            if(selectElem) {
-                selectElem.innerHTML = '';
-                subjects.forEach(sub => {
-                    selectElem.innerHTML += `<option value="${sub}">${sub}</option>`;
+        // Aktiv müəllim seçici dropdown-u doldurmaq
+        function initTeacherSelector() {
+            const selectTeacher = document.getElementById('select-active-teacher');
+            const workload = getWorkloadDatabase();
+            // Unikal müəllim adları
+            const teachers = [...new Set(workload.map(w => w.teacher))];
+            
+            if(selectTeacher) {
+                selectTeacher.innerHTML = '';
+                teachers.forEach(t => {
+                    selectTeacher.innerHTML += `<option value="${t}">${t}</option>`;
                 });
+                changeActiveTeacher();
             }
+        }
+
+        // Müəllim dəyişdikdə onun fənn və qruplarını formaya yükləmək
+        function changeActiveTeacher() {
+            const selectTeacher = document.getElementById('select-active-teacher');
+            const headerName = document.getElementById('header-name');
+            if(!selectTeacher) return;
+            
+            const activeTeacher = selectTeacher.value;
+            if(headerName) headerName.innerText = activeTeacher;
+
+            const workload = getWorkloadDatabase();
+            const teacherLoad = workload.filter(w => w.teacher === activeTeacher);
+
+            // Fənlər select-i
+            const subjectSelect = document.getElementById('ai-subject');
+            const subjects = [...new Set(teacherLoad.map(w => w.subject))];
+            subjectSelect.innerHTML = '';
+            subjects.forEach(s => {
+                subjectSelect.innerHTML += `<option value="${s}">${s}</option>`;
+            });
+
+            // Qruplar select-i
+            const groupSelect = document.getElementById('ai-group');
+            const groups = [...new Set(teacherLoad.map(w => w.group))];
+            groupSelect.innerHTML = '';
+            groups.forEach(g => {
+                groupSelect.innerHTML += `<option value="${g}">${g}</option>`;
+            });
+
+            loadQuestions();
         }
 
         // Kafedra Admin Modalı
         function openAdminModal() {
             document.getElementById('admin-modal').classList.remove('hidden');
-            renderAdminSubjectsList();
+            renderAdminWorkloadList();
         }
 
         function closeAdminModal() {
             document.getElementById('admin-modal').classList.add('hidden');
+            initTeacherSelector();
         }
 
-        function renderAdminSubjectsList() {
-            const listElem = document.getElementById('admin-subjects-list');
-            const subjects = getSubjectsDatabase();
+        function renderAdminWorkloadList() {
+            const listElem = document.getElementById('admin-workload-list');
+            const workload = getWorkloadDatabase();
             listElem.innerHTML = '';
-            subjects.forEach((sub, idx) => {
+            workload.forEach((w, idx) => {
                 listElem.innerHTML += `
-                    <div class="flex justify-between items-center bg-gray-50 p-1.5 rounded border">
-                        <span>${idx + 1}. ${sub}</span>
-                        <button onclick="removeSubject('${sub}')" class="text-red-500 hover:text-red-700 text-xs"><i class="fa-solid fa-trash"></i></button>
+                    <div class="flex justify-between items-center bg-white p-2 rounded border shadow-sm">
+                        <span><b>${w.teacher}</b> — ${w.subject} (${w.group})</span>
+                        <button onclick="removeWorkload(${idx})" class="text-red-500 hover:text-red-700 text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 `;
             });
         }
 
-        function addNewSubjectToDatabase() {
-            const inputElem = document.getElementById('new-subject-name');
-            const newSub = inputElem.value.trim();
-            if(!newSub) {
-                alert("Zəhmət olmasa fənn adını daxil edin!");
+        function addTeacherWorkload() {
+            const tName = document.getElementById('admin-teacher-name').value.trim();
+            const tSub = document.getElementById('admin-teacher-subject').value.trim();
+            const tGroup = document.getElementById('admin-teacher-group').value.trim();
+
+            if(!tName || !tSub || !tGroup) {
+                alert("Zəhmət olmasa bütün sahələri doldurun!");
                 return;
             }
-            let subjects = getSubjectsDatabase();
-            if(subjects.includes(newSub)) {
-                alert("Bu fənn artıq bazada mövcuddur!");
-                return;
-            }
-            subjects.push(newSub);
-            localStorage.setItem('univ_kafedra_subjects', JSON.stringify(subjects));
-            inputElem.value = '';
-            initSubjectsDropdown();
-            renderAdminSubjectsList();
-            alert("Yeni fənn uğurla kafedra bazasına əlavə olundu!");
+
+            let workload = getWorkloadDatabase();
+            workload.push({ teacher: tName, subject: tSub, group: tGroup });
+            localStorage.setItem('univ_teacher_workloads', JSON.stringify(workload));
+
+            document.getElementById('admin-teacher-subject').value = '';
+            document.getElementById('admin-teacher-group').value = '';
+            renderAdminWorkloadList();
+            alert("Dərs yükü uğurla əlavə olundu!");
         }
 
-        function removeSubject(subName) {
-            let subjects = getSubjectsDatabase();
-            subjects = subjects.filter(s => s !== subName);
-            localStorage.setItem('univ_kafedra_subjects', JSON.stringify(subjects));
-            initSubjectsDropdown();
-            renderAdminSubjectsList();
+        function removeWorkload(index) {
+            let workload = getWorkloadDatabase();
+            workload.splice(index, 1);
+            localStorage.setItem('univ_teacher_workloads', JSON.stringify(workload));
+            renderAdminWorkloadList();
         }
 
         function setTheme(themeName) {
@@ -414,14 +460,6 @@
                     if (headerAvatar) headerAvatar.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
-            }
-        }
-
-        function syncProfileInfo() {
-            const nameInput = document.getElementById('input-prof-name');
-            const headerName = document.getElementById('header-name');
-            if(nameInput && headerName) {
-                headerName.innerText = nameInput.value || "Müəllim";
             }
         }
 
@@ -444,7 +482,7 @@
             }
         }
 
-        // Google Gemini AI Sual Generasiyası (Kafedra Fənn Seçimi ilə)
+        // Google Gemini AI Sual Generasiyası (Aktiv müəllimin dərs yükü ilə)
         async function generateAndSaveAIQuestions() {
             const textElem = document.getElementById('ai-lecture-text');
             const diffElem = document.getElementById('ai-difficulty');
@@ -452,13 +490,15 @@
             const subjectElem = document.getElementById('ai-subject');
             const groupElem = document.getElementById('ai-group');
             const lectureTitleElem = document.getElementById('ai-lecture-title');
+            const selectTeacher = document.getElementById('select-active-teacher');
             if(!textElem) return;
 
+            const teacherName = selectTeacher ? selectTeacher.value : 'Müəllim';
             const lectureText = textElem.value;
             const diff = diffElem ? diffElem.value : 'Orta';
             const customPrompt = promptElem ? promptElem.value : '';
-            const subject = subjectElem ? subjectElem.value : 'Kompüter Arxitekturası';
-            const groupName = groupElem ? groupElem.value.trim() : 'Ümumi Qrup';
+            const subject = subjectElem ? subjectElem.value : 'Fənn';
+            const groupName = groupElem ? groupElem.value : 'Qrup';
             const lectureTitle = lectureTitleElem ? lectureTitleElem.value.trim() : 'Mühazirə';
             
             if(!lectureText) {
@@ -475,7 +515,7 @@
                     body: JSON.stringify({
                         contents: [{
                             parts: [{
-                                text: `${customPrompt}\n\nFənn: ${subject}\nQrup: ${groupName}\nMövzu/Mühazirə: ${lectureTitle}\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində hər biri nömrələnmiş (1., 2., 3. və s.) dəqiq 10 ədəd imtahan sualı tərtib et.`
+                                text: `${customPrompt}\n\nMüəllim: ${teacherName}\nFənn: ${subject}\nQrup: ${groupName}\nMövzu/Mühazirə: ${lectureTitle}\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində hər biri nömrələnmiş (1., 2., 3. və s.) dəqiq 10 ədəd imtahan sualı tərtib et.`
                             }]
                         }]
                     })
@@ -515,6 +555,7 @@
 
                 extractedQuestions.forEach(qText => {
                     localQuestions.unshift({
+                        teacher: teacherName,
                         subject: subject,
                         group: groupName,
                         lecture_title: lectureTitle,
@@ -527,7 +568,7 @@
 
                 localStorage.setItem('univ_local_questions', JSON.stringify(localQuestions));
 
-                alert(`Gemini AI ${extractedQuestions.length} ədəd sualı "${subject}" (${groupName} - ${lectureTitle}) üzrə Sual Bankına əlavə etdi!`);
+                alert(`Gemini AI ${extractedQuestions.length} ədəd sualı "${teacherName}" üçün uğurla Sual Bankına əlavə etdi!`);
                 textElem.value = "";
                 loadQuestions();
 
@@ -537,10 +578,17 @@
             }
         }
 
+        // Sual Bankını yalnız aktiv müəllimin dərs yükünə uyğun göstərmək
         function loadQuestions() {
             const bankList = document.getElementById('question-bank-list');
-            const searchKeyword = document.getElementById('filter-search').value.toLowerCase();
+            const selectTeacher = document.getElementById('select-active-teacher');
+            const searchKeyword = document.getElementById('filter-search') ? document.getElementById('filter-search').value.toLowerCase() : '';
+            
+            const activeTeacher = selectTeacher ? selectTeacher.value : '';
             let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
+
+            // Yalnız aktiv müəllimin suallarını süzürük (Kirliliyin qarşısını almaq üçün)
+            localQuestions = localQuestions.filter(q => q.teacher === activeTeacher);
 
             if (searchKeyword) {
                 localQuestions = localQuestions.filter(q => 
@@ -552,7 +600,7 @@
 
             if(bankList) {
                 if(localQuestions.length === 0) {
-                    bankList.innerHTML = '<div class="p-4 border rounded-lg text-xs text-gray-500 text-center">Uyğun gələn sual tapılmadı.</div>';
+                    bankList.innerHTML = '<div class="p-4 border rounded-lg text-xs text-gray-500 text-center">Bu müəllim üçün hələ ki sual yaradılmayıb.</div>';
                 } else {
                     bankList.innerHTML = '';
                     localQuestions.forEach((q, index) => {
