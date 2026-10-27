@@ -224,7 +224,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium mb-1">Hazır Prompt / Tapşırıq:</label>
-                            <textarea id="ai-prompt-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətni əsasında dəقiq 10 ədəd nömrələnmiş (1., 2., 3...) imtahan sualı hazırla.</textarea>
+                            <textarea id="ai-prompt-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:outline-none">Təqdim olunan mühazirə mətni əsasında dəqiq 10 ədəd nömrələnmiş (1., 2., 3...) imtahan sualı hazırla.</textarea>
                         </div>
                     </div>
 
@@ -272,7 +272,7 @@
                     <p class="font-medium">1. L1 keş yaddaşın əsas xüsusiyyəti hansıdır?</p>
                     <label class="block p-3 border rounded-lg cursor-pointer hover:bg-gray-50"><input type="radio" name="q1" class="mr-2"> Prosessora ən yaxın və ən sürətli olması</label>
                 </div>
-                <button onclick="alert('İmtahan cavablarınız qeydə alındı!')" class="w-full mt-6 app-btn-primary py-3 rounded-lg font-medium shadow-md cursor-pointer">İmtahanı Bitir</button>
+                <button id="btn-submit-exam" class="w-full mt-6 app-btn-primary py-3 rounded-lg font-medium shadow-md cursor-pointer">İmtahanı Bitir</button>
             </div>
         </div>
 
@@ -317,4 +317,51 @@
     <div id="profile-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
             <button id="btn-close-profile" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h3
+            <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-user-gear text-blue-600 mr-2"></i> Profil və Şifrə Tənzimləmələri</h3>
+            
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-medium mb-1">Ad Soyad:</label>
+                    <input type="text" id="prof-fullname" class="w-full p-2 border rounded">
+                </div>
+                <div>
+                    <label class="block font-medium mb-1">Korporativ E-poçt (Unikal Mail):</label>
+                    <input type="email" id="prof-email" class="w-full p-2 border rounded" readonly disabled>
+                </div>
+                <hr class="my-2">
+                <div>
+                    <label class="block font-medium mb-1">Köhnə Şifrə:</label>
+                    <input type="password" id="prof-old-pass" class="w-full p-2 border rounded" placeholder="Köhnə şifrə">
+                </div>
+                <div>
+                    <label class="block font-medium mb-1">Yeni Şifrə:</label>
+                    <input type="password" id="prof-new-pass" class="w-full p-2 border rounded" placeholder="Yeni şifrə">
+                </div>
+                <button id="btn-save-profile" class="w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 transition cursor-pointer">
+                    Dəyişiklikləri Yadda Saxla
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ŞİFRƏ BƏRPA MODALI -->
+    <div id="forgot-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
+            <button id="btn-close-forgot" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-key text-blue-600 mr-2"></i> Şifrənin Bərpası</h3>
+            <p class="text-xs text-gray-500">Universitetdə qeydiyyatdan keçmiş unikal korporativ e-poçt ünvanınızı daxil edin.</p>
+            
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-medium mb-1">Korporativ E-poçt:</label>
+                    <input type="email" id="forgot-email" class="w-full p-2.5 border rounded" placeholder="ad.soyad@sdu.edu.az">
+                </div>
+                <button id="btn-send-reset" class="w-full app-btn-primary py-2.5 rounded font-semibold transition cursor-pointer">
+                    Bərpa Linki Göndər
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const GEMINI_API_KEY = 'AQ.Ab8RN6KH4NJxh7245
