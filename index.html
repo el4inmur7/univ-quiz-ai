@@ -54,14 +54,14 @@
                 </div>
 
                 <div class="flex items-center space-x-1.5 bg-black/10 px-2.5 py-1.5 rounded-lg text-xs">
-                    <button onclick="setTheme('theme-blue')" class="w-4 h-4 rounded-full bg-blue-600 border border-white cursor-pointer" title="Mavi"></button>
-                    <button onclick="setTheme('theme-emerald')" class="w-4 h-4 rounded-full bg-emerald-600 border border-white cursor-pointer" title="Yaşıl"></button>
-                    <button onclick="setTheme('theme-dark')" class="w-4 h-4 rounded-full bg-slate-900 border border-white cursor-pointer" title="Tünd"></button>
+                    <button id="theme-blue-btn" class="w-4 h-4 rounded-full bg-blue-600 border border-white cursor-pointer" title="Mavi"></button>
+                    <button id="theme-emerald-btn" class="w-4 h-4 rounded-full bg-emerald-600 border border-white cursor-pointer" title="Yaşıl"></button>
+                    <button id="theme-dark-btn" class="w-4 h-4 rounded-full bg-slate-900 border border-white cursor-pointer" title="Tünd"></button>
                 </div>
 
                 <div class="space-x-1" id="nav-actions">
-                    <button onclick="openLoginModal()" class="px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium hover:bg-white/30 transition cursor-pointer"><i class="fa-solid fa-right-to-bracket mr-1"></i> Sistemə Giriş</button>
-                    <button onclick="switchView('student')" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition cursor-pointer"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə Rejimi</button>
+                    <button id="btn-open-login" class="px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium hover:bg-white/30 transition cursor-pointer"><i class="fa-solid fa-right-to-bracket mr-1"></i> Sistemə Giriş</button>
+                    <button id="btn-student-mode" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition cursor-pointer"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə Rejimi</button>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
             </div>
             <h2 class="text-2xl font-bold">UnivQuiz AI İdarəetmə Portalına Xoş Gəlmisiniz</h2>
             <p class="text-sm text-gray-500">Sistemə daxil olmaq üçün korporativ istifadəçi adı və şifrənizdən istifadə edin.</p>
-            <button onclick="openLoginModal()" class="app-btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold shadow-md transition cursor-pointer">
+            <button id="btn-welcome-login" class="app-btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold shadow-md transition cursor-pointer">
                 <i class="fa-solid fa-key mr-2"></i> Hesaba Giriş Et
             </button>
         </div>
@@ -105,7 +105,7 @@
                         <input type="password" id="sys-admin-password" class="w-full p-2 border rounded text-xs" placeholder="******">
                     </div>
                     <div class="md:col-span-4">
-                        <button onclick="createKafedraAdmin()" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-purple-700 transition cursor-pointer">
+                        <button id="btn-create-kafedra" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-purple-700 transition cursor-pointer">
                             <i class="fa-solid fa-plus mr-1"></i> Kafedra Admini Yarat
                         </button>
                     </div>
@@ -144,7 +144,7 @@
                             <label class="block text-xs font-medium mb-1">Şifrə:</label>
                             <input type="password" id="kaf-teacher-password" class="w-full p-2 border rounded text-xs" placeholder="******">
                         </div>
-                        <button onclick="createTeacherAccount()" class="w-full bg-blue-600 text-white py-2 rounded text-xs font-semibold hover:bg-blue-700 transition cursor-pointer">
+                        <button id="btn-create-teacher" class="w-full bg-blue-600 text-white py-2 rounded text-xs font-semibold hover:bg-blue-700 transition cursor-pointer">
                             <i class="fa-solid fa-user-plus mr-1"></i> Müəllim Hesabını Yarat
                         </button>
                     </div>
@@ -163,7 +163,7 @@
                             <label class="block text-xs font-medium mb-1">Tələbə Qrupu / İxtisas:</label>
                             <input type="text" id="kaf-group-name" class="w-full p-2 border rounded text-xs" placeholder="II kurs (Qrup 521.22)">
                         </div>
-                        <button onclick="assignWorkloadToTeacher()" class="w-full bg-emerald-600 text-white py-2 rounded text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer">
+                        <button id="btn-assign-workload" class="w-full bg-emerald-600 text-white py-2 rounded text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer">
                             <i class="fa-solid fa-link mr-1"></i> Dərs Yükünü Təyin Et
                         </button>
                     </div>
@@ -187,7 +187,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button onclick="openProfileModal()" class="text-xs bg-slate-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-700 transition cursor-pointer">
+                    <button id="btn-open-profile" class="text-xs bg-slate-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-700 transition cursor-pointer">
                         <i class="fa-solid fa-user-gear mr-1"></i> Profil və Şifrə Dəyiş
                     </button>
                 </div>
@@ -233,7 +233,7 @@
                             <label class="block text-sm font-medium mb-1">Mühazirə Materialı / Mətn:</label>
                             <textarea id="ai-lecture-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm" placeholder="Mövzuya aid mühazirə mətni daxil edin..."></textarea>
                         </div>
-                        <button onclick="generateAndSaveAIQuestions()" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md cursor-pointer">
+                        <button id="btn-generate-ai" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md cursor-pointer">
                             <i class="fa-solid fa-sparkles mr-2"></i> Gemini ilə Generasiya Et və Saxla
                         </button>
                     </div>
@@ -245,7 +245,7 @@
                 <div class="card-box md:col-span-2 bg-white p-6 rounded-xl shadow-sm border space-y-4">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı</h3>
-                        <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
+                        <button id="btn-reload-questions" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
                     </div>
                     <div id="question-bank-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2"></div>
                 </div>
@@ -272,7 +272,7 @@
                     <p class="font-medium">1. L1 keş yaddaşın əsas xüsusiyyəti hansıdır?</p>
                     <label class="block p-3 border rounded-lg cursor-pointer hover:bg-gray-50"><input type="radio" name="q1" class="mr-2"> Prosessora ən yaxın və ən sürətli olması</label>
                 </div>
-                <button onclick="alert('İmtahan cavablarınız qeydə alındı!'); location.reload();" class="w-full mt-6 app-btn-primary py-3 rounded-lg font-medium shadow-md cursor-pointer">İmtahanı Bitir</button>
+                <button id="btn-submit-exam" class="w-full mt-6 app-btn-primary py-3 rounded-lg font-medium shadow-md cursor-pointer">İmtahanı Bitir</button>
             </div>
         </div>
 
@@ -281,7 +281,7 @@
     <!-- GİRİŞ MODALI -->
     <div id="login-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button id="btn-close-login" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
             <div class="text-center space-y-1">
                 <h3 class="font-bold text-xl text-slate-800">Sistemə Giriş</h3>
                 <p class="text-xs text-gray-500">Korporativ login və şifrənizi daxil edin</p>
@@ -297,9 +297,9 @@
                     <input type="password" id="login-password" class="w-full p-2.5 border rounded-lg text-sm" placeholder="******">
                 </div>
                 <div class="flex justify-end">
-                    <button onclick="openForgotPasswordModal()" class="text-xs text-blue-600 hover:underline cursor-pointer">Şifrəni unutmusunuz?</button>
+                    <button id="btn-open-forgot" class="text-xs text-blue-600 hover:underline cursor-pointer">Şifrəni unutmusunuz?</button>
                 </div>
-                <button onclick="handleLogin()" class="w-full app-btn-primary py-2.5 rounded-lg text-sm font-semibold shadow-md transition cursor-pointer">
+                <button id="btn-submit-login" class="w-full app-btn-primary py-2.5 rounded-lg text-sm font-semibold shadow-md transition cursor-pointer">
                     <i class="fa-solid fa-right-to-bracket mr-1"></i> Daxil Ol
                 </button>
             </div>
@@ -316,7 +316,7 @@
     <!-- PROFİL VƏ ŞİFRƏ DƏYİŞDİRMƏ MODALI -->
     <div id="profile-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button id="btn-close-profile" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
             <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-user-gear text-blue-600 mr-2"></i> Profil və Şifrə Tənzimləmələri</h3>
             
             <div class="space-y-3 text-xs">
@@ -337,7 +337,7 @@
                     <label class="block font-medium mb-1">Yeni Şifrə:</label>
                     <input type="password" id="prof-new-pass" class="w-full p-2 border rounded" placeholder="Yeni şifrə">
                 </div>
-                <button onclick="updateUserProfile()" class="w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 transition cursor-pointer">
+                <button id="btn-save-profile" class="w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 transition cursor-pointer">
                     Dəyişiklikləri Yadda Saxla
                 </button>
             </div>
@@ -347,7 +347,7 @@
     <!-- ŞİFRƏ BƏRPA MODALI -->
     <div id="forgot-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="closeForgotPasswordModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button id="btn-close-forgot" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
             <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-key text-blue-600 mr-2"></i> Şifrənin Bərpası</h3>
             <p class="text-xs text-gray-500">Universitetdə qeydiyyatdan keçmiş unikal korporativ e-poçt ünvanınızı daxil edin.</p>
             
@@ -356,7 +356,7 @@
                     <label class="block font-medium mb-1">Korporativ E-poçt:</label>
                     <input type="email" id="forgot-email" class="w-full p-2.5 border rounded" placeholder="ad.soyad@sdu.edu.az">
                 </div>
-                <button onclick="sendPasswordResetLink()" class="w-full app-btn-primary py-2.5 rounded font-semibold transition cursor-pointer">
+                <button id="btn-send-reset" class="w-full app-btn-primary py-2.5 rounded font-semibold transition cursor-pointer">
                     Bərpa Linki Göndər
                 </button>
             </div>
@@ -386,21 +386,50 @@
             }
         }
 
-        window.onload = function() {
+        document.addEventListener('DOMContentLoaded', function() {
             initSystemDatabase();
             const currentUrl = window.location.href.split('?')[0];
             const linkElem = document.getElementById('exam-link-text');
             if(linkElem) linkElem.innerText = currentUrl;
-        };
 
-        function openLoginModal() {
-            const modal = document.getElementById('login-modal');
-            if(modal) modal.classList.remove('hidden');
+            // Event Listeners (HTML-də onclick yazılmadığı üçün heç vaxt tapılmama xətası verməyəcək)
+            document.getElementById('btn-open-login').addEventListener('click', openLoginModal);
+            document.getElementById('btn-welcome-login').addEventListener('click', openLoginModal);
+            document.getElementById('btn-close-login').addEventListener('click', closeLoginModal);
+            document.getElementById('login-modal').addEventListener('click', function(e) { if(e.target === this) closeLoginModal(); });
+
+            document.getElementById('btn-student-mode').addEventListener('click', () => switchView('student'));
+            document.getElementById('btn-submit-login').addEventListener('click', handleLogin);
+            document.getElementById('btn-open-forgot').addEventListener('click', openForgotPasswordModal);
+            document.getElementById('btn-close-forgot').addEventListener('click', closeForgotPasswordModal);
+            document.getElementById('btn-send-reset').addEventListener('click', sendPasswordResetLink);
+
+            document.getElementById('btn-create-kafedra').addEventListener('click', createKafedraAdmin);
+            document.getElementById('btn-create-teacher').addEventListener('click', createTeacherAccount);
+            document.getElementById('btn-assign-workload').addEventListener('click', assignWorkloadToTeacher);
+
+            document.getElementById('btn-open-profile').addEventListener('click', openProfileModal);
+            document.getElementById('btn-close-profile').addEventListener('click', closeProfileModal);
+            document.getElementById('btn-save-profile').addEventListener('click', updateUserProfile);
+
+            document.getElementById('btn-generate-ai').addEventListener('click', generateAndSaveAIQuestions);
+            document.getElementById('btn-reload-questions').addEventListener('click', loadQuestions);
+            document.getElementById('btn-submit-exam').addEventListener('click', () => {
+                alert('İmtahan cavablarınız qeydə alındı!');
+                location.reload();
+            });
+
+            document.getElementById('theme-blue-btn').addEventListener('click', () => setTheme('theme-blue'));
+            document.getElementById('theme-emerald-btn').addEventListener('click', () => setTheme('theme-emerald'));
+            document.getElementById('theme-dark-btn').addEventListener('click', () => setTheme('theme-dark'));
+        });
+
+        function openLoginModal() { 
+            document.getElementById('login-modal').classList.remove('hidden'); 
         }
         
-        function closeLoginModal() {
-            const modal = document.getElementById('login-modal');
-            if(modal) modal.classList.add('hidden');
+        function closeLoginModal() { 
+            document.getElementById('login-modal').classList.add('hidden'); 
         }
         
         function openProfileModal() {
@@ -412,8 +441,8 @@
             document.getElementById('profile-modal').classList.remove('hidden');
         }
         
-        function closeProfileModal() {
-            document.getElementById('profile-modal').classList.add('hidden');
+        function closeProfileModal() { 
+            document.getElementById('profile-modal').classList.add('hidden'); 
         }
 
         function openForgotPasswordModal() {
@@ -422,8 +451,8 @@
             document.getElementById('forgot-modal').classList.remove('hidden');
         }
         
-        function closeForgotPasswordModal() {
-            document.getElementById('forgot-modal').classList.add('hidden');
+        function closeForgotPasswordModal() { 
+            document.getElementById('forgot-modal').classList.add('hidden'); 
         }
 
         function sendPasswordResetLink() {
@@ -499,8 +528,9 @@
             document.getElementById('role-badge').innerText = currentUser.role.toUpperCase();
 
             document.getElementById('nav-actions').innerHTML = `
-                <button onclick="logout()" class="px-3 py-1.5 bg-red-600/80 rounded-lg text-sm font-medium hover:bg-red-700 transition cursor-pointer"><i class="fa-solid fa-right-from-bracket mr-1"></i> Çıxış</button>
+                <button id="btn-logout" class="px-3 py-1.5 bg-red-600/80 rounded-lg text-sm font-medium hover:bg-red-700 transition cursor-pointer"><i class="fa-solid fa-right-from-bracket mr-1"></i> Çıxış</button>
             `;
+            document.getElementById('btn-logout').addEventListener('click', logout);
 
             if (currentUser.role === 'sysadmin') {
                 document.getElementById('sysadmin-view').classList.remove('hidden');
@@ -512,4 +542,253 @@
             } else if (currentUser.role === 'teacher') {
                 document.getElementById('teacher-view').classList.remove('hidden');
                 document.getElementById('teacher-display-name').innerText = currentUser.fullname;
-                document.getElementById('teacher-kafedra-info').innerText = currentUser.kafedra
+                document.getElementById('teacher-kafedra-info').innerText = currentUser.kafedra + " Kafedrası | E-poçt: " + (currentUser.email || 'Yoxdur');
+                loadTeacherDashboard();
+                
+                setTimeout(() => {
+                    const currentUrl = window.location.href.split('?')[0];
+                    const linkElem = document.getElementById('exam-link-text');
+                    if(linkElem) linkElem.innerText = currentUrl;
+                    
+                    const qrcodeElem = document.getElementById("qrcode");
+                    if(qrcodeElem) {
+                        qrcodeElem.innerHTML = "";
+                        new QRCode(qrcodeElem, { text: currentUrl, width: 110, height: 110 });
+                    }
+                }, 100);
+            }
+        }
+
+        function logout() { 
+            currentUser = null; 
+            location.reload(); 
+        }
+
+        function createKafedraAdmin() {
+            const kname = document.getElementById('sys-kafedra-name').value.trim();
+            const uname = document.getElementById('sys-admin-username').value.trim();
+            const email = document.getElementById('sys-admin-email').value.trim();
+            const pass = document.getElementById('sys-admin-password').value.trim();
+
+            if(!kname || !uname || !email || !pass) { alert("Bütün xanaları doldurun!"); return; }
+
+            let users = JSON.parse(localStorage.getItem('univ_users') || '[]');
+            users.push({ id: Date.now(), role: 'kafedra_admin', username: uname, password: pass, email: email, fullname: kname + " Kafedra Müdiri", kafedra: kname });
+            localStorage.setItem('univ_users', JSON.stringify(users));
+
+            document.getElementById('sys-kafedra-name').value = '';
+            document.getElementById('sys-admin-username').value = '';
+            document.getElementById('sys-admin-email').value = '';
+            document.getElementById('sys-admin-password').value = '';
+            loadSysAdminData();
+            alert("Kafedra Admini uğurla yaradıldı!");
+        }
+
+        function loadSysAdminData() {
+            const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
+            const kafedras = users.filter(u => u.role === 'kafedra_admin');
+            const listElem = document.getElementById('sys-kafedra-list');
+            if(!listElem) return;
+            listElem.innerHTML = '';
+            kafedras.forEach(k => {
+                listElem.innerHTML += `<div class="bg-gray-50 p-2 border rounded flex justify-between"><span><b>${k.kafedra}</b> — Username: ${k.username} | Mail: ${k.email}</span></div>`;
+            });
+        }
+
+        function createTeacherAccount() {
+            const fname = document.getElementById('kaf-teacher-fullname').value.trim();
+            const uname = document.getElementById('kaf-teacher-username').value.trim();
+            const email = document.getElementById('kaf-teacher-email').value.trim();
+            const pass = document.getElementById('kaf-teacher-password').value.trim();
+
+            if(!fname || !uname || !email || !pass) { alert("Bütün xanaları doldurun!"); return; }
+
+            let users = JSON.parse(localStorage.getItem('univ_users') || '[]');
+            users.push({ id: Date.now(), role: 'teacher', username: uname, password: pass, email: email, fullname: fname, kafedra: currentUser.kafedra });
+            localStorage.setItem('univ_users', JSON.stringify(users));
+
+            document.getElementById('kaf-teacher-fullname').value = '';
+            document.getElementById('kaf-teacher-username').value = '';
+            document.getElementById('kaf-teacher-email').value = '';
+            document.getElementById('kaf-teacher-password').value = '';
+            loadKafedraAdminData();
+            alert("Müəllim hesabı yaradıldı!");
+        }
+
+        function assignWorkloadToTeacher() {
+            const tUname = document.getElementById('kaf-select-teacher').value;
+            const sub = document.getElementById('kaf-subject-name').value.trim();
+            const grp = document.getElementById('kaf-group-name').value.trim();
+
+            if(!tUname || !sub || !grp) { alert("Bütün sahələri doldurun!"); return; }
+
+            let workloads = JSON.parse(localStorage.getItem('univ_workloads') || '[]');
+            workloads.push({ teacher_username: tUname, subject: sub, group: grp });
+            localStorage.setItem('univ_workloads', JSON.stringify(workloads));
+
+            document.getElementById('kaf-subject-name').value = '';
+            document.getElementById('kaf-group-name').value = '';
+            loadKafedraAdminData();
+            alert("Dərs yükü müəllimə bağlandı!");
+        }
+
+        function loadKafedraAdminData() {
+            const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
+            const teachers = users.filter(u => u.role === 'teacher' && u.kafedra === currentUser.kafedra);
+            const selectTeacher = document.getElementById('kaf-select-teacher');
+            if(!selectTeacher) return;
+            selectTeacher.innerHTML = '';
+            teachers.forEach(t => {
+                selectTeacher.innerHTML += `<option value="${t.username}">${t.fullname} (${t.email})</option>`;
+            });
+
+            const workloads = JSON.parse(localStorage.getItem('univ_workloads') || '[]');
+            const listElem = document.getElementById('kaf-teacher-workload-list');
+            if(!listElem) return;
+            listElem.innerHTML = '';
+            teachers.forEach(t => {
+                const tLoads = workloads.filter(w => w.teacher_username === t.username);
+                let loadText = tLoads.map(l => `${l.subject} (${l.group})`).join(', ') || 'Dərs yükü yoxdur';
+                listElem.innerHTML += `<div class="bg-gray-50 p-2 border rounded"><b>${t.fullname}</b> (${t.email}): ${loadText}</div>`;
+            });
+        }
+
+        function loadTeacherDashboard() {
+            const workloads = JSON.parse(localStorage.getItem('univ_workloads') || '[]');
+            const myLoads = workloads.filter(w => w.teacher_username === currentUser.username);
+
+            const subjectSelect = document.getElementById('ai-subject');
+            const groupSelect = document.getElementById('ai-group');
+
+            const mySubjects = [...new Set(myLoads.map(l => l.subject))];
+            const myGroups = [...new Set(myLoads.map(l => l.group))];
+
+            if(subjectSelect) subjectSelect.innerHTML = mySubjects.map(s => `<option value="${s}">${s}</option>`).join('') || '<option>Təyin olunmuş fənn yoxdur</option>';
+            if(groupSelect) groupSelect.innerHTML = myGroups.map(g => `<option value="${g}">${g}</option>`).join('') || '<option>Təyin olunmuş qrup yoxdur</option>';
+
+            loadQuestions();
+        }
+
+        async function generateAndSaveAIQuestions() {
+            const textElem = document.getElementById('ai-lecture-text');
+            const diffElem = document.getElementById('ai-difficulty');
+            const promptElem = document.getElementById('ai-prompt-text');
+            const subjectElem = document.getElementById('ai-subject');
+            const groupElem = document.getElementById('ai-group');
+            const lectureTitleElem = document.getElementById('ai-lecture-title');
+
+            if(!textElem || !textElem.value) { alert("Mühazirə mətnini daxil edin!"); return; }
+
+            const lectureText = textElem.value;
+            const diff = diffElem ? diffElem.value : 'Orta';
+            const customPrompt = promptElem ? promptElem.value : '';
+            const subject = subjectElem ? subjectElem.value : 'Fənn';
+            const groupName = groupElem ? groupElem.value : 'Qrup';
+            const lectureTitle = lectureTitleElem ? lectureTitleElem.value.trim() : 'Mühazirə';
+
+            alert("Google Gemini AI mətni təhlil edir və sualları yaradır...");
+
+            try {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{ text: `${customPrompt}\n\nMüəllim: ${currentUser.fullname} (${currentUser.email})\nFənn: ${subject}\nQrup: ${groupName}\nMövzu/Mühazirə: ${lectureTitle}\nMühazirə mətni: ${lectureText}\n\nÇətinlik səviyyəsi: ${diff}. Zəhmət olmasa Azərbaycan dilində hər biri nömrələnmiş (1., 2., 3...) dəqiq 10 ədəd imtahan sualı tərtib et.` }]
+                        }]
+                    })
+                });
+
+                const result = await response.json();
+                let generatedText = result.candidates[0].content.parts[0].text;
+
+                let lines = generatedText.split('\n');
+                let extractedQuestions = [];
+                let currentQ = "";
+
+                lines.forEach(line => {
+                    let trimmed = line.trim();
+                    if (/^\d+[\.\)]/.test(trimmed)) {
+                        if (currentQ) extractedQuestions.push(currentQ.trim());
+                        currentQ = trimmed;
+                    } else if (trimmed.length > 0) {
+                        currentQ += " " + trimmed;
+                    }
+                });
+                if (currentQ) extractedQuestions.push(currentQ.trim());
+
+                let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
+
+                extractedQuestions.forEach(qText => {
+                    localQuestions.unshift({
+                        teacher_username: currentUser.username,
+                        subject: subject,
+                        group: groupName,
+                        lecture_title: lectureTitle,
+                        question_text: qText,
+                        difficulty: diff,
+                        correct_answer: "Gemini AI Etalon Cavab",
+                        created_at: new Date().toLocaleString()
+                    });
+                });
+
+                localStorage.setItem('univ_local_questions', JSON.stringify(localQuestions));
+                alert(`10 ədəd sual uğurla Sual Bankına əlavə olundu!`);
+                textElem.value = "";
+                loadQuestions();
+
+            } catch(err) {
+                console.error("AI xətası:", err);
+                alert("Süni intellekt ilə əlaqə zamanı xəta baş verdi.");
+            }
+        }
+
+        function loadQuestions() {
+            const bankList = document.getElementById('question-bank-list');
+            if(!bankList || !currentUser) return;
+
+            let localQuestions = JSON.parse(localStorage.getItem('univ_local_questions') || '[]');
+            localQuestions = localQuestions.filter(q => q.teacher_username === currentUser.username);
+
+            if(localQuestions.length === 0) {
+                bankList.innerHTML = '<div class="p-4 border rounded-lg text-xs text-gray-500 text-center">Bu kabinet üçün hələ sual yaradılmayıb.</div>';
+            } else {
+                bankList.innerHTML = '';
+                localQuestions.forEach((q, index) => {
+                    bankList.innerHTML += `
+                        <div class="p-4 border rounded-lg space-y-2 bg-gray-50 shadow-sm">
+                            <div class="flex justify-between items-start gap-2">
+                                <div class="font-bold text-sm whitespace-pre-line text-slate-800">
+                                    ${index + 1}. <span class="text-blue-600">[${q.subject}]</span> 
+                                    <span class="text-indigo-600 font-semibold">(${q.group})</span> 
+                                    <span class="text-amber-700 font-medium">${q.lecture_title}</span><br>
+                                    <span class="font-normal mt-1 block">${q.question_text}</span>
+                                </div>
+                                <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium whitespace-nowrap">${q.difficulty}</span>
+                            </div>
+                            <div class="text-xs text-gray-500 font-mono border-t pt-2 flex justify-between items-center">
+                                <span>Tip: Test | Cavab: ${q.correct_answer}</span>
+                                <span>Tarix: ${q.created_at}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function switchView(view) {
+            if(view === 'student') {
+                document.getElementById('login-welcome-view').classList.add('hidden');
+                document.getElementById('sysadmin-view').classList.add('hidden');
+                document.getElementById('kafedra-admin-view').classList.add('hidden');
+                document.getElementById('teacher-view').classList.add('hidden');
+                document.getElementById('student-view').classList.remove('hidden');
+            }
+        }
+
+        function setTheme(themeName) { 
+            document.body.className = themeName + " font-sans transition-colors duration-300"; 
+        }
+    </script>
+</body>
+</html>
