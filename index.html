@@ -330,7 +330,6 @@
                 <div>
                     <label class="block font-medium mb-1">Korporativ E-poçt (Unikal Mail):</label>
                     <input type="email" id="prof-email" class="w-full p-2 border rounded" readonly disabled>
-                    <span class="text-[10px] text-gray-400">Korporativ e-poçt unikal olub yalnız kafedra tərəfindən dəyişdirilə bilər.</span>
                 </div>
                 <hr class="my-2">
                 <div>
@@ -353,7 +352,7 @@
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
             <button onclick="closeForgotPasswordModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
             <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-key text-blue-600 mr-2"></i> Şifrənin Bərpası</h3>
-            <p class="text-xs text-gray-500">Universitetdə qeydiyyatdan keçmiş unikal korporativ e-poçt ünvanınızı daxil edin. Şifrə sıfırlama linki həmin mailə göndəriləcək.</p>
+            <p class="text-xs text-gray-500">Universitetdə qeydiyyatdan keçmiş unikal korporativ e-poçt ünvanınızı daxil edin.</p>
             
             <div class="space-y-3 text-xs">
                 <div>
@@ -392,21 +391,25 @@
 
         window.onload = function() {
             initSystemDatabase();
+            
+            // Əgər əvvəldən daxil olunubsa, yaddaşdan oxuya bilərik, amma indi təmiz başlamaq üçün ləğv edirik
             const currentUrl = window.location.href.split('?')[0];
             const linkElem = document.getElementById('exam-link-text');
             if(linkElem) linkElem.innerText = currentUrl;
-            
-            const qrcodeElem = document.getElementById("qrcode");
-            if(qrcodeElem) {
-                qrcodeElem.innerHTML = "";
-                new QRCode(qrcodeElem, { text: currentUrl, width: 110, height: 110 });
-            }
         };
 
-        function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
-        function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
+        function openLoginModal() { 
+            const modal = document.getElementById('login-modal');
+            if(modal) modal.classList.remove('hidden'); 
+        }
+        
+        function closeLoginModal() { 
+            const modal = document.getElementById('login-modal');
+            if(modal) modal.classList.add('hidden'); 
+        }
         
         function openProfileModal() {
+            if(!currentUser) return;
             document.getElementById('prof-fullname').value = currentUser.fullname;
             document.getElementById('prof-email').value = currentUser.email || '';
             document.getElementById('prof-old-pass').value = '';
@@ -431,193 +434,4 @@
                 alert("Bu korporativ e-poçt sistemdə tapılmadı!");
                 return;
             }
-            alert(`Şifrə sıfırlama təlimatı uğurla ${email} ünvanına göndərildi! (Simulyasiya)`);
-            closeForgotPasswordModal();
-        }
-
-        function updateUserProfile() {
-            const newName = document.getElementById('prof-fullname').value.trim();
-            const oldPass = document.getElementById('prof-old-pass').value;
-            const newPass = document.getElementById('prof-new-pass').value;
-
-            if(!newName) { alert("Ad soyad boş ola bilməz!"); return; }
-
-            let users = JSON.parse(localStorage.getItem('univ_users') || '[]');
-            let userIndex = users.findIndex(u => u.username === currentUser.username);
-
-            if(userIndex === -1) return;
-
-            if(newPass) {
-                if(oldPass !== currentUser.password) {
-                    alert("Köhnə şifrə yanlışdır!");
-                    return;
-                }
-                users[userIndex].password = newPass;
-                currentUser.password = newPass;
-            }
-
-            users[userIndex].fullname = newName;
-            currentUser.fullname = newName;
-            localStorage.setItem('univ_users', JSON.stringify(users));
-
-            document.getElementById('header-name').innerText = newName;
-            if(currentUser.role === 'teacher') {
-                document.getElementById('teacher-display-name').innerText = newName;
-            }
-
-            closeProfileModal();
-            alert("Profil uğurla yeniləndi!");
-        }
-
-        function handleLogin() {
-            const uInput = document.getElementById('login-username').value.trim();
-            const pInput = document.getElementById('login-password').value.trim();
-            const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
-
-            const foundUser = users.find(u => u.username === uInput && u.password === pInput);
-            if (!foundUser) { alert("İstifadəçi adı və ya şifrə yanlışdır!"); return; }
-
-            currentUser = foundUser;
-            closeLoginModal();
-            setupDashboardForUser();
-        }
-
-        function setupDashboardForUser() {
-            document.getElementById('login-welcome-view').classList.add('hidden');
-            document.getElementById('sysadmin-view').classList.add('hidden');
-            document.getElementById('kafedra-admin-view').classList.add('hidden');
-            document.getElementById('teacher-view').classList.add('hidden');
-            document.getElementById('student-view').classList.add('hidden');
-
-            document.getElementById('user-info-bar').classList.remove('hidden');
-            document.getElementById('header-name').innerText = currentUser.fullname;
-            document.getElementById('header-role').innerText = currentUser.kafedra + " | " + currentUser.role.toUpperCase();
-            document.getElementById('role-badge').innerText = currentUser.role.toUpperCase();
-
-            document.getElementById('nav-actions').innerHTML = `
-                <button onclick="logout()" class="px-3 py-1.5 bg-red-600/80 rounded-lg text-sm font-medium hover:bg-red-700 transition cursor-pointer"><i class="fa-solid fa-right-from-bracket mr-1"></i> Çıxış</button>
-            `;
-
-            if (currentUser.role === 'sysadmin') {
-                document.getElementById('sysadmin-view').classList.remove('hidden');
-                loadSysAdminData();
-            } else if (currentUser.role === 'kafedra_admin') {
-                document.getElementById('kafedra-admin-view').classList.remove('hidden');
-                document.getElementById('kafedra-title-badge').innerText = currentUser.kafedra + " Kafedra Admini";
-                loadKafedraAdminData();
-            } else if (currentUser.role === 'teacher') {
-                document.getElementById('teacher-view').classList.remove('hidden');
-                document.getElementById('teacher-display-name').innerText = currentUser.fullname;
-                document.getElementById('teacher-kafedra-info').innerText = currentUser.kafedra + " Kafedrası | E-poçt: " + (currentUser.email || 'Yoxdur');
-                loadTeacherDashboard();
-            }
-        }
-
-        function logout() { currentUser = null; location.reload(); }
-
-        function createKafedraAdmin() {
-            const kname = document.getElementById('sys-kafedra-name').value.trim();
-            const uname = document.getElementById('sys-admin-username').value.trim();
-            const email = document.getElementById('sys-admin-email').value.trim();
-            const pass = document.getElementById('sys-admin-password').value.trim();
-
-            if(!kname || !uname || !email || !pass) { alert("Bütün xanaları doldurun!"); return; }
-
-            let users = JSON.parse(localStorage.getItem('univ_users') || '[]');
-            users.push({ id: Date.now(), role: 'kafedra_admin', username: uname, password: pass, email: email, fullname: kname + " Kafedra Müdiri", kafedra: kname });
-            localStorage.setItem('univ_users', JSON.stringify(users));
-
-            document.getElementById('sys-kafedra-name').value = '';
-            document.getElementById('sys-admin-username').value = '';
-            document.getElementById('sys-admin-email').value = '';
-            document.getElementById('sys-admin-password').value = '';
-            loadSysAdminData();
-            alert("Kafedra Admini uğurla yaradıldı!");
-        }
-
-        function loadSysAdminData() {
-            const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
-            const kafedras = users.filter(u => u.role === 'kafedra_admin');
-            const listElem = document.getElementById('sys-kafedra-list');
-            listElem.innerHTML = '';
-            kafedras.forEach(k => {
-                listElem.innerHTML += `<div class="bg-gray-50 p-2 border rounded flex justify-between"><span><b>${k.kafedra}</b> — Username: ${k.username} | Mail: ${k.email}</span></div>`;
-            });
-        }
-
-        function createTeacherAccount() {
-            const fname = document.getElementById('kaf-teacher-fullname').value.trim();
-            const uname = document.getElementById('kaf-teacher-username').value.trim();
-            const email = document.getElementById('kaf-teacher-email').value.trim();
-            const pass = document.getElementById('kaf-teacher-password').value.trim();
-
-            if(!fname || !uname || !email || !pass) { alert("Bütün xanaları doldurun!"); return; }
-
-            let users = JSON.parse(localStorage.getItem('univ_users') || '[]');
-            users.push({ id: Date.now(), role: 'teacher', username: uname, password: pass, email: email, fullname: fname, kafedra: currentUser.kafedra });
-            localStorage.setItem('univ_users', JSON.stringify(users));
-
-            document.getElementById('kaf-teacher-fullname').value = '';
-            document.getElementById('kaf-teacher-username').value = '';
-            document.getElementById('kaf-teacher-email').value = '';
-            document.getElementById('kaf-teacher-password').value = '';
-            loadKafedraAdminData();
-            alert("Müəllim hesabı yaradıldı!");
-        }
-
-        function assignWorkloadToTeacher() {
-            const tUname = document.getElementById('kaf-select-teacher').value;
-            const sub = document.getElementById('kaf-subject-name').value.trim();
-            const grp = document.getElementById('kaf-group-name').value.trim();
-
-            if(!tUname || !sub || !grp) { alert("Bütün sahələri doldurun!"); return; }
-
-            let workloads = JSON.parse(localStorage.getItem('univ_workloads') || '[]');
-            workloads.push({ teacher_username: tUname, subject: sub, group: grp });
-            localStorage.setItem('univ_workloads', JSON.stringify(workloads));
-
-            document.getElementById('kaf-subject-name').value = '';
-            document.getElementById('kaf-group-name').value = '';
-            loadKafedraAdminData();
-            alert("Dərs yükü müəllimə bağlandı!");
-        }
-
-        function loadKafedraAdminData() {
-            const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
-            const teachers = users.filter(u => u.role === 'teacher' && u.kafedra === currentUser.kafedra);
-            const selectTeacher = document.getElementById('kaf-select-teacher');
-            selectTeacher.innerHTML = '';
-            teachers.forEach(t => {
-                selectTeacher.innerHTML += `<option value="${t.username}">${t.fullname} (${t.email})</option>`;
-            });
-
-            const workloads = JSON.parse(localStorage.getItem('univ_workloads') || '[]');
-            const listElem = document.getElementById('kaf-teacher-workload-list');
-            listElem.innerHTML = '';
-            teachers.forEach(t => {
-                const tLoads = workloads.filter(w => w.teacher_username === t.username);
-                let loadText = tLoads.map(l => `${l.subject} (${l.group})`).join(', ') || 'Dərs yükü yoxdur';
-                listElem.innerHTML += `<div class="bg-gray-50 p-2 border rounded"><b>${t.fullname}</b> (${t.email}): ${loadText}</div>`;
-            });
-        }
-
-        function loadTeacherDashboard() {
-            const workloads = JSON.parse(localStorage.getItem('univ_workloads') || '[]');
-            const myLoads = workloads.filter(w => w.teacher_username === currentUser.username);
-
-            const subjectSelect = document.getElementById('ai-subject');
-            const groupSelect = document.getElementById('ai-group');
-
-            const mySubjects = [...new Set(myLoads.map(l => l.subject))];
-            const myGroups = [...new Set(myLoads.map(l => l.group))];
-
-            subjectSelect.innerHTML = mySubjects.map(s => `<option value="${s}">${s}</option>`).join('') || '<option>Təyin olunmuş fənn yoxdur</option>';
-            groupSelect.innerHTML = myGroups.map(g => `<option value="${g}">${g}</option>`).join('') || '<option>Təyin olunmuş qrup yoxdur</option>';
-
-            loadQuestions();
-        }
-
-        async function generateAndSaveAIQuestions() {
-            const textElem = document.getElementById('ai-lecture-text');
-            const diffElem = document.getElementById('ai-difficulty');
-            const promptElem = document.getElementById('ai-
+            alert(`Şifrə
