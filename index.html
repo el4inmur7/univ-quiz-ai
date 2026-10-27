@@ -54,14 +54,14 @@
                 </div>
 
                 <div class="flex items-center space-x-1.5 bg-black/10 px-2.5 py-1.5 rounded-lg text-xs">
-                    <button onclick="window.setTheme('theme-blue')" class="w-4 h-4 rounded-full bg-blue-600 border border-white cursor-pointer" title="Mavi"></button>
-                    <button onclick="window.setTheme('theme-emerald')" class="w-4 h-4 rounded-full bg-emerald-600 border border-white cursor-pointer" title="Yaşıl"></button>
-                    <button onclick="window.setTheme('theme-dark')" class="w-4 h-4 rounded-full bg-slate-900 border border-white cursor-pointer" title="Tünd"></button>
+                    <button onclick="setTheme('theme-blue')" class="w-4 h-4 rounded-full bg-blue-600 border border-white cursor-pointer" title="Mavi"></button>
+                    <button onclick="setTheme('theme-emerald')" class="w-4 h-4 rounded-full bg-emerald-600 border border-white cursor-pointer" title="Yaşıl"></button>
+                    <button onclick="setTheme('theme-dark')" class="w-4 h-4 rounded-full bg-slate-900 border border-white cursor-pointer" title="Tünd"></button>
                 </div>
 
                 <div class="space-x-1" id="nav-actions">
-                    <button onclick="window.openLoginModal()" class="px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium hover:bg-white/30 transition cursor-pointer"><i class="fa-solid fa-right-to-bracket mr-1"></i> Sistemə Giriş</button>
-                    <button onclick="window.switchView('student')" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition cursor-pointer"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə Rejimi</button>
+                    <button onclick="openLoginModal()" class="px-3 py-1.5 bg-white/20 rounded-lg text-sm font-medium hover:bg-white/30 transition cursor-pointer"><i class="fa-solid fa-right-to-bracket mr-1"></i> Sistemə Giriş</button>
+                    <button onclick="switchView('student')" class="px-3 py-1.5 bg-white/10 rounded-lg text-sm font-medium hover:bg-white/20 transition cursor-pointer"><i class="fa-solid fa-user-graduate mr-1"></i> Tələbə Rejimi</button>
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@
             </div>
             <h2 class="text-2xl font-bold">UnivQuiz AI İdarəetmə Portalına Xoş Gəlmisiniz</h2>
             <p class="text-sm text-gray-500">Sistemə daxil olmaq üçün korporativ istifadəçi adı və şifrənizdən istifadə edin.</p>
-            <button onclick="window.openLoginModal()" class="app-btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold shadow-md transition cursor-pointer">
+            <button onclick="openLoginModal()" class="app-btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold shadow-md transition cursor-pointer">
                 <i class="fa-solid fa-key mr-2"></i> Hesaba Giriş Et
             </button>
         </div>
@@ -105,7 +105,7 @@
                         <input type="password" id="sys-admin-password" class="w-full p-2 border rounded text-xs" placeholder="******">
                     </div>
                     <div class="md:col-span-4">
-                        <button onclick="window.createKafedraAdmin()" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-purple-700 transition cursor-pointer">
+                        <button onclick="createKafedraAdmin()" class="bg-purple-600 text-white px-4 py-2 rounded-lg text-xs font-semibold hover:bg-purple-700 transition cursor-pointer">
                             <i class="fa-solid fa-plus mr-1"></i> Kafedra Admini Yarat
                         </button>
                     </div>
@@ -144,7 +144,7 @@
                             <label class="block text-xs font-medium mb-1">Şifrə:</label>
                             <input type="password" id="kaf-teacher-password" class="w-full p-2 border rounded text-xs" placeholder="******">
                         </div>
-                        <button onclick="window.createTeacherAccount()" class="w-full bg-blue-600 text-white py-2 rounded text-xs font-semibold hover:bg-blue-700 transition cursor-pointer">
+                        <button onclick="createTeacherAccount()" class="w-full bg-blue-600 text-white py-2 rounded text-xs font-semibold hover:bg-blue-700 transition cursor-pointer">
                             <i class="fa-solid fa-user-plus mr-1"></i> Müəllim Hesabını Yarat
                         </button>
                     </div>
@@ -163,7 +163,7 @@
                             <label class="block text-xs font-medium mb-1">Tələbə Qrupu / İxtisas:</label>
                             <input type="text" id="kaf-group-name" class="w-full p-2 border rounded text-xs" placeholder="II kurs (Qrup 521.22)">
                         </div>
-                        <button onclick="window.assignWorkloadToTeacher()" class="w-full bg-emerald-600 text-white py-2 rounded text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer">
+                        <button onclick="assignWorkloadToTeacher()" class="w-full bg-emerald-600 text-white py-2 rounded text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer">
                             <i class="fa-solid fa-link mr-1"></i> Dərs Yükünü Təyin Et
                         </button>
                     </div>
@@ -187,7 +187,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button onclick="window.openProfileModal()" class="text-xs bg-slate-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-700 transition cursor-pointer">
+                    <button onclick="openProfileModal()" class="text-xs bg-slate-800 text-white px-3 py-1.5 rounded-lg font-medium hover:bg-slate-700 transition cursor-pointer">
                         <i class="fa-solid fa-user-gear mr-1"></i> Profil və Şifrə Dəyiş
                     </button>
                 </div>
@@ -233,7 +233,7 @@
                             <label class="block text-sm font-medium mb-1">Mühazirə Materialı / Mətn:</label>
                             <textarea id="ai-lecture-text" rows="3" class="w-full p-2.5 border rounded-lg text-sm" placeholder="Mövzuya aid mühazirə mətni daxil edin..."></textarea>
                         </div>
-                        <button onclick="window.generateAndSaveAIQuestions()" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md cursor-pointer">
+                        <button onclick="generateAndSaveAIQuestions()" class="w-full app-btn-primary py-2.5 rounded-lg font-medium transition flex items-center justify-center text-sm shadow-md cursor-pointer">
                             <i class="fa-solid fa-sparkles mr-2"></i> Gemini ilə Generasiya Et və Saxla
                         </button>
                     </div>
@@ -245,7 +245,7 @@
                 <div class="card-box md:col-span-2 bg-white p-6 rounded-xl shadow-sm border space-y-4">
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-bold flex items-center"><i class="fa-solid fa-list-check app-accent-text mr-2"></i> Sual Bankı</h3>
-                        <button onclick="window.loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
+                        <button onclick="loadQuestions()" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1.5 rounded-lg font-medium hover:bg-blue-100 transition cursor-pointer"><i class="fa-solid fa-rotate mr-1"></i> Yenilə</button>
                     </div>
                     <div id="question-bank-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2"></div>
                 </div>
@@ -281,7 +281,7 @@
     <!-- GİRİŞ MODALI -->
     <div id="login-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="window.closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
             <div class="text-center space-y-1">
                 <h3 class="font-bold text-xl text-slate-800">Sistemə Giriş</h3>
                 <p class="text-xs text-gray-500">Korporativ login və şifrənizi daxil edin</p>
@@ -297,9 +297,9 @@
                     <input type="password" id="login-password" class="w-full p-2.5 border rounded-lg text-sm" placeholder="******">
                 </div>
                 <div class="flex justify-end">
-                    <button onclick="window.openForgotPasswordModal()" class="text-xs text-blue-600 hover:underline cursor-pointer">Şifrəni unutmusunuz?</button>
+                    <button onclick="openForgotPasswordModal()" class="text-xs text-blue-600 hover:underline cursor-pointer">Şifrəni unutmusunuz?</button>
                 </div>
-                <button onclick="window.handleLogin()" class="w-full app-btn-primary py-2.5 rounded-lg text-sm font-semibold shadow-md transition cursor-pointer">
+                <button onclick="handleLogin()" class="w-full app-btn-primary py-2.5 rounded-lg text-sm font-semibold shadow-md transition cursor-pointer">
                     <i class="fa-solid fa-right-to-bracket mr-1"></i> Daxil Ol
                 </button>
             </div>
@@ -316,7 +316,7 @@
     <!-- PROFİL VƏ ŞİFRƏ DƏYİŞDİRMƏ MODALI -->
     <div id="profile-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="window.closeProfileModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button onclick="closeProfileModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
             <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-user-gear text-blue-600 mr-2"></i> Profil və Şifrə Tənzimləmələri</h3>
             
             <div class="space-y-3 text-xs">
@@ -337,7 +337,7 @@
                     <label class="block font-medium mb-1">Yeni Şifrə:</label>
                     <input type="password" id="prof-new-pass" class="w-full p-2 border rounded" placeholder="Yeni şifrə">
                 </div>
-                <button onclick="window.updateUserProfile()" class="w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 transition cursor-pointer">
+                <button onclick="updateUserProfile()" class="w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700 transition cursor-pointer">
                     Dəyişiklikləri Yadda Saxla
                 </button>
             </div>
@@ -347,7 +347,7 @@
     <!-- ŞİFRƏ BƏRPA MODALI -->
     <div id="forgot-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 shadow-2xl relative">
-            <button onclick="window.closeForgotPasswordModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <button onclick="closeForgotPasswordModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-xl"></i></button>
             <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-key text-blue-600 mr-2"></i> Şifrənin Bərpası</h3>
             <p class="text-xs text-gray-500">Universitetdə qeydiyyatdan keçmiş unikal korporativ e-poçt ünvanınızı daxil edin.</p>
             
@@ -356,7 +356,7 @@
                     <label class="block font-medium mb-1">Korporativ E-poçt:</label>
                     <input type="email" id="forgot-email" class="w-full p-2.5 border rounded" placeholder="ad.soyad@sdu.edu.az">
                 </div>
-                <button onclick="window.sendPasswordResetLink()" class="w-full app-btn-primary py-2.5 rounded font-semibold transition cursor-pointer">
+                <button onclick="sendPasswordResetLink()" class="w-full app-btn-primary py-2.5 rounded font-semibold transition cursor-pointer">
                     Bərpa Linki Göndər
                 </button>
             </div>
@@ -393,40 +393,40 @@
             if(linkElem) linkElem.innerText = currentUrl;
         };
 
-        window.openLoginModal = function() {
+        function openLoginModal() {
             const modal = document.getElementById('login-modal');
             if(modal) modal.classList.remove('hidden');
-        };
+        }
         
-        window.closeLoginModal = function() {
+        function closeLoginModal() {
             const modal = document.getElementById('login-modal');
             if(modal) modal.classList.add('hidden');
-        };
+        }
         
-        window.openProfileModal = function() {
+        function openProfileModal() {
             if(!currentUser) return;
             document.getElementById('prof-fullname').value = currentUser.fullname;
             document.getElementById('prof-email').value = currentUser.email || '';
             document.getElementById('prof-old-pass').value = '';
             document.getElementById('prof-new-pass').value = '';
             document.getElementById('profile-modal').classList.remove('hidden');
-        };
+        }
         
-        window.closeProfileModal = function() {
+        function closeProfileModal() {
             document.getElementById('profile-modal').classList.add('hidden');
-        };
+        }
 
-        window.openForgotPasswordModal = function() {
-            window.closeLoginModal();
+        function openForgotPasswordModal() {
+            closeLoginModal();
             document.getElementById('forgot-email').value = '';
             document.getElementById('forgot-modal').classList.remove('hidden');
-        };
+        }
         
-        window.closeForgotPasswordModal = function() {
+        function closeForgotPasswordModal() {
             document.getElementById('forgot-modal').classList.add('hidden');
-        };
+        }
 
-        window.sendPasswordResetLink = function() {
+        function sendPasswordResetLink() {
             const email = document.getElementById('forgot-email').value.trim();
             if(!email) { alert("E-poçt ünvanını daxil edin!"); return; }
             const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
@@ -436,10 +436,10 @@
                 return;
             }
             alert(`Şifrə sıfırlama təlimatı uğurla ${email} ünvanına göndərildi! (Simulyasiya)`);
-            window.closeForgotPasswordModal();
-        };
+            closeForgotPasswordModal();
+        }
 
-        window.updateUserProfile = function() {
+        function updateUserProfile() {
             const newName = document.getElementById('prof-fullname').value.trim();
             const oldPass = document.getElementById('prof-old-pass').value;
             const newPass = document.getElementById('prof-new-pass').value;
@@ -469,11 +469,11 @@
                 document.getElementById('teacher-display-name').innerText = newName;
             }
 
-            window.closeProfileModal();
+            closeProfileModal();
             alert("Profil uğurla yeniləndi!");
-        };
+        }
 
-        window.handleLogin = function() {
+        function handleLogin() {
             const uInput = document.getElementById('login-username').value.trim();
             const pInput = document.getElementById('login-password').value.trim();
             const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
@@ -482,9 +482,9 @@
             if (!foundUser) { alert("İstifadəçi adı və ya şifrə yanlışdır!"); return; }
 
             currentUser = foundUser;
-            window.closeLoginModal();
+            closeLoginModal();
             setupDashboardForUser();
-        };
+        }
 
         function setupDashboardForUser() {
             document.getElementById('login-welcome-view').classList.add('hidden');
@@ -499,7 +499,7 @@
             document.getElementById('role-badge').innerText = currentUser.role.toUpperCase();
 
             document.getElementById('nav-actions').innerHTML = `
-                <button onclick="window.logout()" class="px-3 py-1.5 bg-red-600/80 rounded-lg text-sm font-medium hover:bg-red-700 transition cursor-pointer"><i class="fa-solid fa-right-from-bracket mr-1"></i> Çıxış</button>
+                <button onclick="logout()" class="px-3 py-1.5 bg-red-600/80 rounded-lg text-sm font-medium hover:bg-red-700 transition cursor-pointer"><i class="fa-solid fa-right-from-bracket mr-1"></i> Çıxış</button>
             `;
 
             if (currentUser.role === 'sysadmin') {
@@ -512,73 +512,4 @@
             } else if (currentUser.role === 'teacher') {
                 document.getElementById('teacher-view').classList.remove('hidden');
                 document.getElementById('teacher-display-name').innerText = currentUser.fullname;
-                document.getElementById('teacher-kafedra-info').innerText = currentUser.kafedra + " Kafedrası | E-poçt: " + (currentUser.email || 'Yoxdur');
-                loadTeacherDashboard();
-                
-                setTimeout(() => {
-                    const currentUrl = window.location.href.split('?')[0];
-                    const linkElem = document.getElementById('exam-link-text');
-                    if(linkElem) linkElem.innerText = currentUrl;
-                    
-                    const qrcodeElem = document.getElementById("qrcode");
-                    if(qrcodeElem) {
-                        qrcodeElem.innerHTML = "";
-                        new QRCode(qrcodeElem, { text: currentUrl, width: 110, height: 110 });
-                    }
-                }, 100);
-            }
-        }
-
-        window.logout = function() { 
-            currentUser = null; 
-            location.reload(); 
-        };
-
-        window.createKafedraAdmin = function() {
-            const kname = document.getElementById('sys-kafedra-name').value.trim();
-            const uname = document.getElementById('sys-admin-username').value.trim();
-            const email = document.getElementById('sys-admin-email').value.trim();
-            const pass = document.getElementById('sys-admin-password').value.trim();
-
-            if(!kname || !uname || !email || !pass) { alert("Bütün xanaları doldurun!"); return; }
-
-            let users = JSON.parse(localStorage.getItem('univ_users') || '[]');
-            users.push({ id: Date.now(), role: 'kafedra_admin', username: uname, password: pass, email: email, fullname: kname + " Kafedra Müdiri", kafedra: kname });
-            localStorage.setItem('univ_users', JSON.stringify(users));
-
-            document.getElementById('sys-kafedra-name').value = '';
-            document.getElementById('sys-admin-username').value = '';
-            document.getElementById('sys-admin-email').value = '';
-            document.getElementById('sys-admin-password').value = '';
-            loadSysAdminData();
-            alert("Kafedra Admini uğurla yaradıldı!");
-        };
-
-        function loadSysAdminData() {
-            const users = JSON.parse(localStorage.getItem('univ_users') || '[]');
-            const kafedras = users.filter(u => u.role === 'kafedra_admin');
-            const listElem = document.getElementById('sys-kafedra-list');
-            if(!listElem) return;
-            listElem.innerHTML = '';
-            kafedras.forEach(k => {
-                listElem.innerHTML += `<div class="bg-gray-50 p-2 border rounded flex justify-between"><span><b>${k.kafedra}</b> — Username: ${k.username} | Mail: ${k.email}</span></div>`;
-            });
-        }
-
-        window.createTeacherAccount = function() {
-            const fname = document.getElementById('kaf-teacher-fullname').value.trim();
-            const uname = document.getElementById('kaf-teacher-username').value.trim();
-            const email = document.getElementById('kaf-teacher-email').value.trim();
-            const pass = document.getElementById('kaf-teacher-password').value.trim();
-
-            if(!fname || !uname || !email || !pass) { alert("Bütün xanaları doldurun!"); return; }
-
-            let users = JSON.parse(localStorage.getItem('univ_users') || '[]');
-            users.push({ id: Date.now(), role: 'teacher', username: uname, password: pass, email: email, fullname: fname, kafedra: currentUser.kafedra });
-            localStorage.setItem('univ_users', JSON.stringify(users));
-
-            document.getElementById('kaf-teacher-fullname').value = '';
-            document.getElementById('kaf-teacher-username').value = '';
-            document.getElementById('kaf-teacher-email').value = '';
-            document.getElementById('kaf-teacher-password').value = '';
-            load
+                document.getElementById('teacher-kafedra-info').innerText = currentUser.kafedra
